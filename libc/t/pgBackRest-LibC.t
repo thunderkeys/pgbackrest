@@ -6,6 +6,7 @@ use warnings;
 use Carp;
 use English '-no_match_vars';
 
+use Config;
 use Fcntl qw(O_RDONLY);
 
 # Set number of tests
@@ -20,6 +21,11 @@ pgBackRest::LibC->import(qw(:debug :checksum));
 
 # UVSIZE determines the pointer and long long int size.  This needs to be 8 to indicate 64-bit types are available.
 ok (&UVSIZE == 8, 'UVSIZE == 8');
+
+# Is the architecture little or big-endian?
+my $bLittleEndian = $Config{byteorder} eq '12345678' || $Config{byteorder} eq '1234' ? 1 :
+    ($Config{byteorder} eq '87654321' || $Config{byteorder} eq '4321' ? 0 :
+        confess 'unsupported architecture with byte order \'' . $Config{byteorder} . '\'');
 
 sub pageBuild
 {
@@ -38,7 +44,7 @@ sub pageBuild
 {
     my $strPageFile = 't/data/page.bin';
     my $iPageSize = 8192;
-    my $iPageChecksum = 0x1B99;
+    my $iPageChecksum = $bLittleEndian ? 0x1B99 : 0xA9C0;
 
     # Load the block into a buffer
     sysopen(my $hFile, $strPageFile, O_RDONLY)
@@ -68,7 +74,7 @@ sub pageBuild
 
     # Now munge the block and make sure the checksum changes
     $iPageChecksumTest = pageChecksum(pack('I', 1024) . substr($tBuffer, 4), 0, $iPageSize);
-    my $iPageChecksumMunge = 0xFCFF;
+    my $iPageChecksumMunge = $bLittleEndian ? 0xFCFF : 0x9D9E;
 
     ok (
         $iPageChecksumTest == $iPageChecksumMunge,
