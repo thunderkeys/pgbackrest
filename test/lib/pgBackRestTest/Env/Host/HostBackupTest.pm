@@ -23,7 +23,7 @@ use pgBackRest::Common::Exception;
 use pgBackRest::Common::Ini;
 use pgBackRest::Common::Log;
 use pgBackRest::Config::Config;
-use pgBackRest::LibC qw(:config :configRule);
+use pgBackRest::LibC qw(:configRule);
 use pgBackRest::Manifest;
 use pgBackRest::Protocol::Storage::Helper;
 use pgBackRest::Storage::Posix::Driver;

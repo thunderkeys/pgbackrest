@@ -16,7 +16,7 @@ use Cwd qw(abs_path);
 use pgBackRest::Common::Exception;
 use pgBackRest::Common::Log;
 use pgBackRest::Config::Config;
-use pgBackRest::LibC qw(:config :configRule);
+use pgBackRest::LibC qw(:configRule);
 
 use pgBackRestBuild::Config::Data;
 

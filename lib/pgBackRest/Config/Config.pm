@@ -24,9 +24,9 @@ use pgBackRest::LibC qw(:config :configRule);
 use pgBackRest::Version;
 
 ####################################################################################################################################
-# Export everything from LibC config
+# Export everything from LibC qw(config)
 ####################################################################################################################################
-push(@EXPORT, @pgBackRest::LibC::EXPORT_OK);
+push(@EXPORT, @{$pgBackRest::LibC::EXPORT_TAGS{config}});
 
 ####################################################################################################################################
 # SOURCE Constants
