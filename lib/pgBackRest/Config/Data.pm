@@ -284,26 +284,26 @@ use constant CFGOPT_RECOVERY_OPTION                                 => 'recovery
 # Stanza options
 #-----------------------------------------------------------------------------------------------------------------------------------
 # Determines how many databases can be configured
-use constant CFGBLDOPTDEF_INDEX_DB                                  => 2;
+use constant CFGDEF_INDEX_DB                                        => 2;
 
 # Prefix that must be used by all db options that allow multiple configurations
-use constant CFGOPT_PREFIX_DB                                       => 'db';
+use constant CFGDEF_PREFIX_DB                                       => 'db';
 
-use constant CFGOPT_DB_CMD                                          => CFGOPT_PREFIX_DB . '-cmd';
+use constant CFGOPT_DB_CMD                                          => CFGDEF_PREFIX_DB . '-cmd';
     push @EXPORT, qw(CFGOPT_DB_CMD);
-use constant CFGOPT_DB_CONFIG                                       => CFGOPT_PREFIX_DB . '-config';
+use constant CFGOPT_DB_CONFIG                                       => CFGDEF_PREFIX_DB . '-config';
     push @EXPORT, qw(CFGOPT_DB_CONFIG);
-use constant CFGOPT_DB_HOST                                         => CFGOPT_PREFIX_DB . '-host';
+use constant CFGOPT_DB_HOST                                         => CFGDEF_PREFIX_DB . '-host';
     push @EXPORT, qw(CFGOPT_DB_HOST);
-use constant CFGOPT_DB_PATH                                         => CFGOPT_PREFIX_DB . '-path';
+use constant CFGOPT_DB_PATH                                         => CFGDEF_PREFIX_DB . '-path';
     push @EXPORT, qw(CFGOPT_DB_PATH);
-use constant CFGOPT_DB_PORT                                         => CFGOPT_PREFIX_DB . '-port';
+use constant CFGOPT_DB_PORT                                         => CFGDEF_PREFIX_DB . '-port';
     push @EXPORT, qw(CFGOPT_DB_PORT);
-use constant CFGOPT_DB_SSH_PORT                                     => CFGOPT_PREFIX_DB . '-ssh-port';
+use constant CFGOPT_DB_SSH_PORT                                     => CFGDEF_PREFIX_DB . '-ssh-port';
     push @EXPORT, qw(CFGOPT_DB_SSH_PORT);
-use constant CFGOPT_DB_SOCKET_PATH                                  => CFGOPT_PREFIX_DB . '-socket-path';
+use constant CFGOPT_DB_SOCKET_PATH                                  => CFGDEF_PREFIX_DB . '-socket-path';
     push @EXPORT, qw(CFGOPT_DB_SOCKET_PATH);
-use constant CFGOPT_DB_USER                                         => CFGOPT_PREFIX_DB . '-user';
+use constant CFGOPT_DB_USER                                         => CFGDEF_PREFIX_DB . '-user';
     push @EXPORT, qw(CFGOPT_DB_USER);
 
 ####################################################################################################################################
@@ -312,58 +312,58 @@ use constant CFGOPT_DB_USER                                         => CFGOPT_PR
 
 # Local/remote types
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPTVAL_TYPE_DB                                   => 'db';
-use constant CFGBLDOPTVAL_TYPE_BACKUP                               => 'backup';
+use constant CFGOPTVAL_TYPE_DB                                      => 'db';
+use constant CFGOPTVAL_TYPE_BACKUP                                  => 'backup';
 
 # Backup type
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPTVAL_BACKUP_TYPE_FULL                          => 'full';
-use constant CFGBLDOPTVAL_BACKUP_TYPE_DIFF                          => 'diff';
-use constant CFGBLDOPTVAL_BACKUP_TYPE_INCR                          => 'incr';
+use constant CFGOPTVAL_BACKUP_TYPE_FULL                             => 'full';
+use constant CFGOPTVAL_BACKUP_TYPE_DIFF                             => 'diff';
+use constant CFGOPTVAL_BACKUP_TYPE_INCR                             => 'incr';
 
 # Repo type
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPTVAL_REPO_TYPE_CIFS                            => 'cifs';
-use constant CFGBLDOPTVAL_REPO_TYPE_POSIX                           => 'posix';
-use constant CFGBLDOPTVAL_REPO_TYPE_S3                              => 's3';
+use constant CFGOPTVAL_REPO_TYPE_CIFS                               => 'cifs';
+use constant CFGOPTVAL_REPO_TYPE_POSIX                              => 'posix';
+use constant CFGOPTVAL_REPO_TYPE_S3                                 => 's3';
 
 # Info output
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPTVAL_INFO_OUTPUT_TEXT                          => 'text';
-use constant CFGBLDOPTVAL_INFO_OUTPUT_JSON                          => 'json';
+use constant CFGOPTVAL_INFO_OUTPUT_TEXT                             => 'text';
+use constant CFGOPTVAL_INFO_OUTPUT_JSON                             => 'json';
 
 # Restore type
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPTVAL_RESTORE_TYPE_NAME                         => 'name';
-use constant CFGBLDOPTVAL_RESTORE_TYPE_TIME                         => 'time';
-use constant CFGBLDOPTVAL_RESTORE_TYPE_XID                          => 'xid';
-use constant CFGBLDOPTVAL_RESTORE_TYPE_PRESERVE                     => 'preserve';
-use constant CFGBLDOPTVAL_RESTORE_TYPE_NONE                         => 'none';
-use constant CFGBLDOPTVAL_RESTORE_TYPE_IMMEDIATE                    => 'immediate';
-use constant CFGBLDOPTVAL_RESTORE_TYPE_DEFAULT                      => 'default';
+use constant CFGOPTVAL_RESTORE_TYPE_NAME                            => 'name';
+use constant CFGOPTVAL_RESTORE_TYPE_TIME                            => 'time';
+use constant CFGOPTVAL_RESTORE_TYPE_XID                             => 'xid';
+use constant CFGOPTVAL_RESTORE_TYPE_PRESERVE                        => 'preserve';
+use constant CFGOPTVAL_RESTORE_TYPE_NONE                            => 'none';
+use constant CFGOPTVAL_RESTORE_TYPE_IMMEDIATE                       => 'immediate';
+use constant CFGOPTVAL_RESTORE_TYPE_DEFAULT                         => 'default';
 
 # Restore target action
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPTVAL_RESTORE_TARGET_ACTION_PAUSE               => 'pause';
-use constant CFGBLDOPTVAL_RESTORE_TARGET_ACTION_PROMOTE             => 'promote';
-use constant CFGBLDOPTVAL_RESTORE_TARGET_ACTION_SHUTDOWN            => 'shutdown';
+use constant CFGOPTVAL_RESTORE_TARGET_ACTION_PAUSE                  => 'pause';
+use constant CFGOPTVAL_RESTORE_TARGET_ACTION_PROMOTE                => 'promote';
+use constant CFGOPTVAL_RESTORE_TARGET_ACTION_SHUTDOWN               => 'shutdown';
 
 ####################################################################################################################################
 # Option defaults - only defined here when the default is used in more than one place
 ####################################################################################################################################
-use constant CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN                      => 16384;
+use constant CFGDEF_DEFAULT_BUFFER_SIZE_MIN                         => 16384;
 
-use constant CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MIN                   => 0;
-use constant CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MAX                   => 9;
+use constant CFGDEF_DEFAULT_COMPRESS_LEVEL_MIN                      => 0;
+use constant CFGDEF_DEFAULT_COMPRESS_LEVEL_MAX                      => 9;
 
-use constant CFGBLDDEF_DEFAULT_CONFIG                               => '/etc/' . BACKREST_CONF;
+use constant CFGDEF_DEFAULT_CONFIG                                  => '/etc/' . BACKREST_CONF;
 
-use constant CFGBLDDEF_DEFAULT_DB_TIMEOUT                           => 1800;
-use constant CFGBLDDEF_DEFAULT_DB_TIMEOUT_MIN                       => WAIT_TIME_MINIMUM;
-use constant CFGBLDDEF_DEFAULT_DB_TIMEOUT_MAX                       => 86400 * 7;
+use constant CFGDEF_DEFAULT_DB_TIMEOUT                              => 1800;
+use constant CFGDEF_DEFAULT_DB_TIMEOUT_MIN                          => WAIT_TIME_MINIMUM;
+use constant CFGDEF_DEFAULT_DB_TIMEOUT_MAX                          => 86400 * 7;
 
-use constant CFGBLDDEF_DEFAULT_RETENTION_MIN                        => 1;
-use constant CFGBLDDEF_DEFAULT_RETENTION_MAX                        => 999999999;
+use constant CFGDEF_DEFAULT_RETENTION_MIN                           => 1;
+use constant CFGDEF_DEFAULT_RETENTION_MAX                           => 999999999;
 
 ####################################################################################################################################
 # Option definition constants - rules, types, sections, etc.
@@ -436,7 +436,7 @@ my %hOptionRule =
     &CFGOPT_CONFIG =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_DEFAULT => CFGBLDDEF_DEFAULT_CONFIG,
+        &CFGBLDDEF_RULE_DEFAULT => CFGDEF_DEFAULT_CONFIG,
         &CFGBLDDEF_RULE_NEGATE => true,
         &CFGBLDDEF_RULE_COMMAND =>
         {
@@ -571,9 +571,9 @@ my %hOptionRule =
                     &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
                     &CFGBLDDEF_RULE_DEPEND_LIST =>
                     [
-                        &CFGBLDOPTVAL_RESTORE_TYPE_NAME,
-                        &CFGBLDOPTVAL_RESTORE_TYPE_TIME,
-                        &CFGBLDOPTVAL_RESTORE_TYPE_XID,
+                        &CFGOPTVAL_RESTORE_TYPE_NAME,
+                        &CFGOPTVAL_RESTORE_TYPE_TIME,
+                        &CFGOPTVAL_RESTORE_TYPE_XID,
                     ],
                 },
             },
@@ -593,8 +593,8 @@ my %hOptionRule =
                     &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
                     &CFGBLDDEF_RULE_DEPEND_LIST =>
                     [
-                        &CFGBLDOPTVAL_RESTORE_TYPE_TIME,
-                        &CFGBLDOPTVAL_RESTORE_TYPE_XID,
+                        &CFGOPTVAL_RESTORE_TYPE_TIME,
+                        &CFGOPTVAL_RESTORE_TYPE_XID,
                     ],
                 },
             },
@@ -608,13 +608,13 @@ my %hOptionRule =
         {
             &CFGCMD_RESTORE =>
             {
-                &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_RESTORE_TARGET_ACTION_PAUSE,
+                &CFGBLDDEF_RULE_DEFAULT => CFGOPTVAL_RESTORE_TARGET_ACTION_PAUSE,
 
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
                 [
-                    &CFGBLDOPTVAL_RESTORE_TARGET_ACTION_PAUSE,
-                    &CFGBLDOPTVAL_RESTORE_TARGET_ACTION_PROMOTE,
-                    &CFGBLDOPTVAL_RESTORE_TARGET_ACTION_SHUTDOWN,
+                    &CFGOPTVAL_RESTORE_TARGET_ACTION_PAUSE,
+                    &CFGOPTVAL_RESTORE_TARGET_ACTION_PROMOTE,
+                    &CFGOPTVAL_RESTORE_TARGET_ACTION_SHUTDOWN,
                 ],
 
                 &CFGBLDDEF_RULE_DEPEND =>
@@ -622,9 +622,9 @@ my %hOptionRule =
                     &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
                     &CFGBLDDEF_RULE_DEPEND_LIST =>
                     [
-                        &CFGBLDOPTVAL_RESTORE_TYPE_NAME,
-                        &CFGBLDOPTVAL_RESTORE_TYPE_TIME,
-                        &CFGBLDOPTVAL_RESTORE_TYPE_XID,
+                        &CFGOPTVAL_RESTORE_TYPE_NAME,
+                        &CFGOPTVAL_RESTORE_TYPE_TIME,
+                        &CFGOPTVAL_RESTORE_TYPE_XID,
                     ],
                 },
             },
@@ -644,10 +644,10 @@ my %hOptionRule =
                     &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
                     &CFGBLDDEF_RULE_DEPEND_LIST =>
                     [
-                        &CFGBLDOPTVAL_RESTORE_TYPE_DEFAULT,
-                        &CFGBLDOPTVAL_RESTORE_TYPE_NAME,
-                        &CFGBLDOPTVAL_RESTORE_TYPE_TIME,
-                        &CFGBLDOPTVAL_RESTORE_TYPE_XID,
+                        &CFGOPTVAL_RESTORE_TYPE_DEFAULT,
+                        &CFGOPTVAL_RESTORE_TYPE_NAME,
+                        &CFGOPTVAL_RESTORE_TYPE_TIME,
+                        &CFGOPTVAL_RESTORE_TYPE_XID,
                     ],
                 },
             },
@@ -661,12 +661,12 @@ my %hOptionRule =
         {
             &CFGCMD_BACKUP =>
             {
-                &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_BACKUP_TYPE_INCR,
+                &CFGBLDDEF_RULE_DEFAULT => CFGOPTVAL_BACKUP_TYPE_INCR,
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
                 [
-                    &CFGBLDOPTVAL_BACKUP_TYPE_FULL,
-                    &CFGBLDOPTVAL_BACKUP_TYPE_DIFF,
-                    &CFGBLDOPTVAL_BACKUP_TYPE_INCR,
+                    &CFGOPTVAL_BACKUP_TYPE_FULL,
+                    &CFGOPTVAL_BACKUP_TYPE_DIFF,
+                    &CFGOPTVAL_BACKUP_TYPE_INCR,
                 ]
             },
 
@@ -674,8 +674,8 @@ my %hOptionRule =
             {
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
                 [
-                    &CFGBLDOPTVAL_TYPE_DB,
-                    &CFGBLDOPTVAL_TYPE_BACKUP,
+                    &CFGOPTVAL_TYPE_DB,
+                    &CFGOPTVAL_TYPE_BACKUP,
                 ],
             },
 
@@ -683,23 +683,23 @@ my %hOptionRule =
             {
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
                 [
-                    &CFGBLDOPTVAL_TYPE_DB,
-                    &CFGBLDOPTVAL_TYPE_BACKUP,
+                    &CFGOPTVAL_TYPE_DB,
+                    &CFGOPTVAL_TYPE_BACKUP,
                 ],
             },
 
             &CFGCMD_RESTORE =>
             {
-                &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_RESTORE_TYPE_DEFAULT,
+                &CFGBLDDEF_RULE_DEFAULT => CFGOPTVAL_RESTORE_TYPE_DEFAULT,
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
                 [
-                    &CFGBLDOPTVAL_RESTORE_TYPE_NAME,
-                    &CFGBLDOPTVAL_RESTORE_TYPE_TIME,
-                    &CFGBLDOPTVAL_RESTORE_TYPE_XID,
-                    &CFGBLDOPTVAL_RESTORE_TYPE_PRESERVE,
-                    &CFGBLDOPTVAL_RESTORE_TYPE_NONE,
-                    &CFGBLDOPTVAL_RESTORE_TYPE_IMMEDIATE,
-                    &CFGBLDOPTVAL_RESTORE_TYPE_DEFAULT,
+                    &CFGOPTVAL_RESTORE_TYPE_NAME,
+                    &CFGOPTVAL_RESTORE_TYPE_TIME,
+                    &CFGOPTVAL_RESTORE_TYPE_XID,
+                    &CFGOPTVAL_RESTORE_TYPE_PRESERVE,
+                    &CFGOPTVAL_RESTORE_TYPE_NONE,
+                    &CFGOPTVAL_RESTORE_TYPE_IMMEDIATE,
+                    &CFGOPTVAL_RESTORE_TYPE_DEFAULT,
                 ]
             }
         }
@@ -712,11 +712,11 @@ my %hOptionRule =
         {
             &CFGCMD_INFO =>
             {
-                &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_INFO_OUTPUT_TEXT,
+                &CFGBLDDEF_RULE_DEFAULT => CFGOPTVAL_INFO_OUTPUT_TEXT,
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
                 [
-                    &CFGBLDOPTVAL_INFO_OUTPUT_TEXT,
-                    &CFGBLDOPTVAL_INFO_OUTPUT_JSON,
+                    &CFGOPTVAL_INFO_OUTPUT_TEXT,
+                    &CFGOPTVAL_INFO_OUTPUT_JSON,
                 ]
             }
         }
@@ -815,17 +815,17 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_DEFAULT => COMMON_IO_BUFFER_MAX,
         &CFGBLDDEF_RULE_ALLOW_LIST =>
         [
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 2,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 4,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 8,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 16,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 32,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 64,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 128,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 256,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 512,
-            &CFGBLDDEF_DEFAULT_BUFFER_SIZE_MIN * 1024,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 2,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 4,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 8,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 16,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 32,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 64,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 128,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 256,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 512,
+            &CFGDEF_DEFAULT_BUFFER_SIZE_MIN * 1024,
         ],
         &CFGBLDDEF_RULE_COMMAND =>
         {
@@ -847,8 +847,8 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_FLOAT,
-        &CFGBLDDEF_RULE_DEFAULT => CFGBLDDEF_DEFAULT_DB_TIMEOUT,
-        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_DB_TIMEOUT_MIN, CFGBLDDEF_DEFAULT_DB_TIMEOUT_MAX],
+        &CFGBLDDEF_RULE_DEFAULT => CFGDEF_DEFAULT_DB_TIMEOUT,
+        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGDEF_DEFAULT_DB_TIMEOUT_MIN, CFGDEF_DEFAULT_DB_TIMEOUT_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_ARCHIVE_GET => {},
@@ -881,7 +881,7 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_DEFAULT => 6,
-        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MIN, CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MAX],
+        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGDEF_DEFAULT_COMPRESS_LEVEL_MIN, CFGDEF_DEFAULT_COMPRESS_LEVEL_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_ARCHIVE_GET => {},
@@ -902,7 +902,7 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_DEFAULT => 3,
-        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MIN, CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MAX],
+        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGDEF_DEFAULT_COMPRESS_LEVEL_MIN, CFGDEF_DEFAULT_COMPRESS_LEVEL_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_ARCHIVE_GET => {},
@@ -1011,8 +1011,8 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_FLOAT,
-        &CFGBLDDEF_RULE_DEFAULT => CFGBLDDEF_DEFAULT_DB_TIMEOUT + 30,
-        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_DB_TIMEOUT_MIN, CFGBLDDEF_DEFAULT_DB_TIMEOUT_MAX],
+        &CFGBLDDEF_RULE_DEFAULT => CFGDEF_DEFAULT_DB_TIMEOUT + 30,
+        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGDEF_DEFAULT_DB_TIMEOUT_MIN, CFGDEF_DEFAULT_DB_TIMEOUT_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_ARCHIVE_GET => {},
@@ -1058,7 +1058,7 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_DEPEND =>
         {
             &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_REPO_TYPE,
-            &CFGBLDDEF_RULE_DEPEND_LIST => [CFGBLDOPTVAL_REPO_TYPE_S3],
+            &CFGBLDDEF_RULE_DEPEND_LIST => [CFGOPTVAL_REPO_TYPE_S3],
         },
         &CFGBLDDEF_RULE_COMMAND => CFGOPT_REPO_TYPE,
     },
@@ -1075,7 +1075,7 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_DEPEND =>
         {
             &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_REPO_TYPE,
-            &CFGBLDDEF_RULE_DEPEND_LIST => [CFGBLDOPTVAL_REPO_TYPE_S3],
+            &CFGBLDDEF_RULE_DEPEND_LIST => [CFGOPTVAL_REPO_TYPE_S3],
         },
         &CFGBLDDEF_RULE_COMMAND => CFGOPT_REPO_TYPE,
     },
@@ -1108,12 +1108,12 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_REPO_TYPE_POSIX,
+        &CFGBLDDEF_RULE_DEFAULT => CFGOPTVAL_REPO_TYPE_POSIX,
         &CFGBLDDEF_RULE_ALLOW_LIST =>
         [
-            &CFGBLDOPTVAL_REPO_TYPE_CIFS,
-            &CFGBLDOPTVAL_REPO_TYPE_POSIX,
-            &CFGBLDOPTVAL_REPO_TYPE_S3,
+            &CFGOPTVAL_REPO_TYPE_CIFS,
+            &CFGOPTVAL_REPO_TYPE_POSIX,
+            &CFGOPTVAL_REPO_TYPE_S3,
         ],
         &CFGBLDDEF_RULE_COMMAND =>
         {
@@ -1325,7 +1325,7 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_DEFAULT => CFGBLDDEF_DEFAULT_CONFIG,
+        &CFGBLDDEF_RULE_DEFAULT => CFGDEF_DEFAULT_CONFIG,
         &CFGBLDDEF_RULE_COMMAND => CFGOPT_BACKUP_HOST,
         &CFGBLDDEF_RULE_DEPEND =>
         {
@@ -1465,7 +1465,7 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_REQUIRED => false,
-        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_RETENTION_MIN, CFGBLDDEF_DEFAULT_RETENTION_MAX],
+        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGDEF_DEFAULT_RETENTION_MIN, CFGDEF_DEFAULT_RETENTION_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_BACKUP => {},
@@ -1477,7 +1477,7 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_BACKUP_TYPE_FULL,
+        &CFGBLDDEF_RULE_DEFAULT => CFGOPTVAL_BACKUP_TYPE_FULL,
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_BACKUP => {},
@@ -1485,9 +1485,9 @@ my %hOptionRule =
         },
         &CFGBLDDEF_RULE_ALLOW_LIST =>
         [
-            &CFGBLDOPTVAL_BACKUP_TYPE_FULL,
-            &CFGBLDOPTVAL_BACKUP_TYPE_DIFF,
-            &CFGBLDOPTVAL_BACKUP_TYPE_INCR,
+            &CFGOPTVAL_BACKUP_TYPE_FULL,
+            &CFGOPTVAL_BACKUP_TYPE_DIFF,
+            &CFGOPTVAL_BACKUP_TYPE_INCR,
         ]
     },
 
@@ -1496,7 +1496,7 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_REQUIRED => false,
-        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_RETENTION_MIN, CFGBLDDEF_DEFAULT_RETENTION_MAX],
+        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGDEF_DEFAULT_RETENTION_MIN, CFGDEF_DEFAULT_RETENTION_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_BACKUP => {},
@@ -1509,7 +1509,7 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_REQUIRED => false,
-        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_RETENTION_MIN, CFGBLDDEF_DEFAULT_RETENTION_MAX],
+        &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGDEF_DEFAULT_RETENTION_MIN, CFGDEF_DEFAULT_RETENTION_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_BACKUP => {},
@@ -1589,10 +1589,10 @@ my %hOptionRule =
             &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
             &CFGBLDDEF_RULE_DEPEND_LIST =>
             [
-                &CFGBLDOPTVAL_RESTORE_TYPE_DEFAULT,
-                &CFGBLDOPTVAL_RESTORE_TYPE_NAME,
-                &CFGBLDOPTVAL_RESTORE_TYPE_TIME,
-                &CFGBLDOPTVAL_RESTORE_TYPE_XID,
+                &CFGOPTVAL_RESTORE_TYPE_DEFAULT,
+                &CFGOPTVAL_RESTORE_TYPE_NAME,
+                &CFGOPTVAL_RESTORE_TYPE_TIME,
+                &CFGOPTVAL_RESTORE_TYPE_XID,
             ],
         },
     },
@@ -1603,7 +1603,7 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGDEF_PREFIX_DB,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
@@ -1626,8 +1626,8 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
-        &CFGBLDDEF_RULE_DEFAULT => CFGBLDDEF_DEFAULT_CONFIG,
+        &CFGBLDDEF_RULE_PREFIX => CFGDEF_PREFIX_DB,
+        &CFGBLDDEF_RULE_DEFAULT => CFGDEF_DEFAULT_CONFIG,
         &CFGBLDDEF_RULE_COMMAND =>
         {
             &CFGCMD_BACKUP => {},
@@ -1649,7 +1649,7 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGDEF_PREFIX_DB,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
@@ -1669,7 +1669,7 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGDEF_PREFIX_DB,
         &CFGBLDDEF_RULE_REQUIRED => true,
         &CFGBLDDEF_RULE_HINT => "does this stanza exist?",
         &CFGBLDDEF_RULE_COMMAND =>
@@ -1702,7 +1702,7 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
-        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGDEF_PREFIX_DB,
         &CFGBLDDEF_RULE_DEFAULT => 5432,
         &CFGBLDDEF_RULE_COMMAND =>
         {
@@ -1718,7 +1718,7 @@ my %hOptionRule =
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
-        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGDEF_PREFIX_DB,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND => CFGOPT_DB_HOST,
         &CFGBLDDEF_RULE_DEPEND =>
@@ -1730,7 +1730,7 @@ my %hOptionRule =
     &CFGOPT_DB_SOCKET_PATH =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
-        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGDEF_PREFIX_DB,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
@@ -1747,7 +1747,7 @@ my %hOptionRule =
     &CFGOPT_DB_USER =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
-        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGDEF_PREFIX_DB,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => 'postgres',
         &CFGBLDDEF_RULE_COMMAND =>
@@ -1939,12 +1939,12 @@ sub cfgbldOptionRuleGet
     {
         # Build options for all possible db configurations
         if (defined($rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX}) &&
-            $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX} eq CFGOPT_PREFIX_DB)
+            $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX} eq CFGDEF_PREFIX_DB)
         {
             my $strPrefix = $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX};
-            $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_INDEX} = CFGBLDOPTDEF_INDEX_DB;
+            $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_INDEX} = CFGDEF_INDEX_DB;
 
-            for (my $iIndex = 1; $iIndex <= CFGBLDOPTDEF_INDEX_DB; $iIndex++)
+            for (my $iIndex = 1; $iIndex <= CFGDEF_INDEX_DB; $iIndex++)
             {
                 my $strKeyNew = "${strPrefix}${iIndex}" . substr($strKey, length($strPrefix));
 
