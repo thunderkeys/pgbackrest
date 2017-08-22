@@ -42,7 +42,7 @@
 # CFGBLDDEF_RULE_ALLOW_LIST:
 #   Lists the allowable settings for the option.
 ####################################################################################################################################
-package pgBackRestBuild::Config::Data;
+package pgBackRest::Config::Data;
 
 use strict;
 use warnings FATAL => qw(all);
@@ -2004,5 +2004,15 @@ sub cfgbldCommandGet
 }
 
 push @EXPORT, qw(cfgbldCommandGet);
+
+####################################################################################################################################
+# cfgdefRule - get rule hash
+####################################################################################################################################
+sub cfgdefRule
+{
+    return cfgbldOptionRuleGet();
+}
+
+push @EXPORT, qw(cfgdefRule);
 
 1;

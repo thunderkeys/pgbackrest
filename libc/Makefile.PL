@@ -106,10 +106,10 @@ my $rhExport =
 # Generate LibC.pm
 ####################################################################################################################################
 use pgBackRest::Common::String;
+use pgBackRest::Config::Data;
 use pgBackRest::Version;
 
 use pgBackRestBuild::Build::Common;
-use pgBackRestBuild::Config::Data;
 
 use constant LIB_NAME                                               => 'LibC';
 

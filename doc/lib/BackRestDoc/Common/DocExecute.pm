@@ -17,9 +17,8 @@ use pgBackRest::Common::Exception;
 use pgBackRest::Common::Ini;
 use pgBackRest::Common::Log;
 use pgBackRest::Common::String;
+use pgBackRest::Config::Data;
 use pgBackRest::Version;
-
-use pgBackRestBuild::Config::Data;
 
 use pgBackRestTest::Common::ExecuteTest;
 use pgBackRestTest::Common::HostTest;
