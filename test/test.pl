@@ -345,7 +345,7 @@ eval
             my $strVagrantPath = "${strBackRestBase}/test/.vagrant";
             my $strLibCPath = "${strVagrantPath}/libc";
             my $strLibCSmart = "${strLibCPath}/build.timestamp";
-            my @stryLibCSrcPath = ('build', 'doc', 'libc', 'src');
+            my @stryLibCSrcPath = ('build', 'doc', 'lib', 'libc', 'src');
 
             # VM Info
             my $oVm = vmGet();
@@ -401,7 +401,7 @@ eval
                             {bSuppressStdErr => true});
                     }
 
-                    foreach my $strLibCSrcPath (@stryLibCSrcPath, 'lib')
+                    foreach my $strLibCSrcPath (@stryLibCSrcPath)
                     {
                         $oStorageBackRest->pathCreate(
                             "${strLibCPath}/${strBuildVM}/${strLibCSrcPath}", {bIgnoreExists => true, bCreateParent => true});

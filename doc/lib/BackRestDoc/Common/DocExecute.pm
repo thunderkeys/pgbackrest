@@ -516,7 +516,7 @@ sub backrestConfig
                 else
                 {
                     # Get the config options hash
-                    my $oOption = cfgbldOptionRuleGet();
+                    my $oOption = cfgdefRuleIndex();
 
                     # Make sure the specified option exists
                     # ??? This is too simplistic to handle new indexed options.  The check below works for now but it would be good

@@ -108,7 +108,7 @@ my $rhOptionIdConstantMap;
 my $rhOptionNameConstantMap;
 my $rhOptionNameIdMap;
 my $iOptionTotal = 0;
-my $rhOptionRule = cfgbldOptionRuleGet();
+my $rhOptionRule = cfgdefRuleIndex();
 my @stryOptionAlt;
 
 foreach my $strOption (sort(keys(%{$rhOptionRule})))
@@ -595,14 +595,11 @@ sub buildConfig
             my $rhCommand = $rhOption->{&CFGBLDDEF_RULE_COMMAND}{$strCommand};
             my $iCommandId = $rhCommandNameIdMap->{$strCommand};
 
-            optionRule(BLDLCL_FUNCTION_VALID, defined($rhCommand) ? true : false, $iCommandId, $iOptionId);
+            optionRule(BLDLCL_FUNCTION_VALID, cfgOptionValid($strCommand, $strOption), $iCommandId, $iOptionId);
 
             if (defined($rhCommand))
             {
-                optionRule(
-                    BLDLCL_FUNCTION_REQUIRED,
-                    coalesce($rhCommand->{&CFGBLDDEF_RULE_REQUIRED}, $rhOption->{&CFGBLDDEF_RULE_REQUIRED}, true), $iCommandId,
-                    $iOptionId);
+                optionRule(BLDLCL_FUNCTION_REQUIRED, cfgOptionRequired($strCommand, $strOption), $iCommandId, $iOptionId);
 
                 optionRule(
                     BLDLCL_FUNCTION_DEFAULT,

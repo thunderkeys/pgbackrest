@@ -169,7 +169,7 @@ sub formatText
 
     # Generate constants for options that have a list of strings as allowed values
     my $bFirst = true;
-    my $rhOptionRule = cfgbldOptionRuleHelpGet();
+    my $rhOptionRule = cfgdefRule();
 
     $strLibC .=
         "\n# Configuration option value constants\n" .

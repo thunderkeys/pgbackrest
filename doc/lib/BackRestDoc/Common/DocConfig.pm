@@ -113,7 +113,7 @@ sub process
     }
 
     # Iterate through all options
-    my $oOptionRule = cfgbldOptionRuleHelpGet();
+    my $oOptionRule = cfgdefRule();
 
     foreach my $strOption (sort(keys(%{$oOptionRule})))
     {
@@ -554,7 +554,7 @@ sub manGet
     }
 
     # Build command and config hashes
-    my $hOptionRule = cfgbldOptionRuleHelpGet();
+    my $hOptionRule = cfgdefRule();
     my $hConfig = $self->{oConfigHash};
     my $hCommandList = {};
     my $iCommandMaxLen = 0;
@@ -799,7 +799,7 @@ sub helpCommandDocGet
     # Working variables
     my $oConfigHash = $self->{oConfigHash};
     my $oOperationDoc = $self->{oDoc}->nodeGet('operation');
-    my $oOptionRule = cfgbldOptionRuleHelpGet();
+    my $oOptionRule = cfgdefRule();
 
     my $oDoc = new BackRestDoc::Common::Doc();
     $oDoc->paramSet('title', $oOperationDoc->paramGet('title'));

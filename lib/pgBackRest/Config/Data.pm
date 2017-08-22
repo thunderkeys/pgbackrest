@@ -1832,6 +1832,51 @@ foreach my $strKey (sort(keys(%hOptionRule)))
 }
 
 ####################################################################################################################################
+# Generate indexed rules
+####################################################################################################################################
+my $rhOptionRuleIndex = dclone(\%hOptionRule);
+
+foreach my $strKey (sort(keys(%{$rhOptionRuleIndex})))
+{
+    # Build options for all possible db configurations
+    if (defined($rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX}) &&
+        $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX} eq CFGDEF_PREFIX_DB)
+    {
+        my $strPrefix = $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX};
+        $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_INDEX} = CFGDEF_INDEX_DB;
+
+        for (my $iIndex = 1; $iIndex <= CFGDEF_INDEX_DB; $iIndex++)
+        {
+            my $strKeyNew = "${strPrefix}${iIndex}" . substr($strKey, length($strPrefix));
+
+            $rhOptionRuleIndex->{$strKeyNew} = dclone($rhOptionRuleIndex->{$strKey});
+
+            # Create the alternate name for option index 1
+            if ($iIndex == 1)
+            {
+                $rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_ALT_NAME} = $strKey;
+            }
+            else
+            {
+                $rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_REQUIRED} = false;
+            }
+
+            if (defined($rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_DEPEND}) &&
+                defined($rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_DEPEND}{&CFGBLDDEF_RULE_DEPEND_OPTION}))
+            {
+                $rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_DEPEND}{&CFGBLDDEF_RULE_DEPEND_OPTION} =
+                    "${strPrefix}${iIndex}" .
+                    substr(
+                        $rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_DEPEND}{&CFGBLDDEF_RULE_DEPEND_OPTION},
+                        length($strPrefix));
+            }
+        }
+
+        delete($rhOptionRuleIndex->{$strKey});
+    }
+}
+
+####################################################################################################################################
 # cfgbldCommandRule - returns the option rules based on the command.
 ####################################################################################################################################
 sub cfgbldCommandRule
@@ -1919,66 +1964,24 @@ sub cfgbldOptionTypeTest
 push @EXPORT, qw(cfgbldOptionTypeTest);
 
 ####################################################################################################################################
-# cfgbldOptionRuleHelpGet - get option rules without indexed options
+# cfgdefRule - get option rules without indexed options
 ####################################################################################################################################
-sub cfgbldOptionRuleHelpGet
+sub cfgdefRule
 {
     return dclone(\%hOptionRule);
 }
 
-push @EXPORT, qw(cfgbldOptionRuleHelpGet);
+push @EXPORT, qw(cfgdefRule);
 
 ####################################################################################################################################
-# cfgbldOptionRuleGet - get option rules
+# cfgdefRuleIndex - get option rules
 ####################################################################################################################################
-sub cfgbldOptionRuleGet
+sub cfgdefRuleIndex
 {
-    my $rhOptionRuleIndex = dclone(\%hOptionRule);
-
-    foreach my $strKey (sort(keys(%{$rhOptionRuleIndex})))
-    {
-        # Build options for all possible db configurations
-        if (defined($rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX}) &&
-            $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX} eq CFGDEF_PREFIX_DB)
-        {
-            my $strPrefix = $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX};
-            $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_INDEX} = CFGDEF_INDEX_DB;
-
-            for (my $iIndex = 1; $iIndex <= CFGDEF_INDEX_DB; $iIndex++)
-            {
-                my $strKeyNew = "${strPrefix}${iIndex}" . substr($strKey, length($strPrefix));
-
-                $rhOptionRuleIndex->{$strKeyNew} = dclone($rhOptionRuleIndex->{$strKey});
-
-                # Create the alternate name for option index 1
-                if ($iIndex == 1)
-                {
-                    $rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_ALT_NAME} = $strKey;
-                }
-                else
-                {
-                    $rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_REQUIRED} = false;
-                }
-
-                if (defined($rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_DEPEND}) &&
-                    defined($rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_DEPEND}{&CFGBLDDEF_RULE_DEPEND_OPTION}))
-                {
-                    $rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_DEPEND}{&CFGBLDDEF_RULE_DEPEND_OPTION} =
-                        "${strPrefix}${iIndex}" .
-                        substr(
-                            $rhOptionRuleIndex->{$strKeyNew}{&CFGBLDDEF_RULE_DEPEND}{&CFGBLDDEF_RULE_DEPEND_OPTION},
-                            length($strPrefix));
-                }
-            }
-
-            delete($rhOptionRuleIndex->{$strKey});
-        }
-    }
-
-    return $rhOptionRuleIndex;
+    return dclone($rhOptionRuleIndex);
 }
 
-push @EXPORT, qw(cfgbldOptionRuleGet);
+push @EXPORT, qw(cfgdefRuleIndex);
 
 ####################################################################################################################################
 # cfgbldCommandGet - get the hash that contains all valid commands
@@ -2006,13 +2009,34 @@ sub cfgbldCommandGet
 push @EXPORT, qw(cfgbldCommandGet);
 
 ####################################################################################################################################
-# cfgdefRule - get rule hash
+# cfgOptionRequired - is the option required?
 ####################################################################################################################################
-sub cfgdefRule
+sub cfgOptionRequired
 {
-    return cfgbldOptionRuleGet();
+    my $strCommand = shift;
+    my $strOption = shift;
+
+    my $rxRule =
+        defined($rhOptionRuleIndex->{$strOption}{&CFGBLDDEF_RULE_COMMAND}{$strCommand}{&CFGBLDDEF_RULE_REQUIRED}) ?
+            $rhOptionRuleIndex->{$strOption}{&CFGBLDDEF_RULE_COMMAND}{$strCommand}{&CFGBLDDEF_RULE_REQUIRED} :
+            $rhOptionRuleIndex->{$strOption}{&CFGBLDDEF_RULE_REQUIRED};
+
+    return defined($rxRule) ? $rxRule : true;
 }
 
-push @EXPORT, qw(cfgdefRule);
+push @EXPORT, qw(cfgOptionRequired);
+
+####################################################################################################################################
+# cfgOptionValid - is the option valid for the command?
+####################################################################################################################################
+sub cfgOptionValid
+{
+    my $strCommand = shift;
+    my $strOption = shift;
+
+    return defined($rhOptionRuleIndex->{$strOption}{&CFGBLDDEF_RULE_COMMAND}{$strCommand}) ? true : false;
+}
+
+push @EXPORT, qw(cfgOptionValid);
 
 1;
