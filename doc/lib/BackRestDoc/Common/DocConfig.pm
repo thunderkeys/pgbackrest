@@ -98,7 +98,7 @@ sub process
 
     foreach my $strCommand (sort(keys(%{cfgbldCommandGet()})))
     {
-        if ($strCommand eq CFGBLDCMD_REMOTE || $strCommand eq CFGBLDCMD_LOCAL)
+        if ($strCommand eq CFGCMD_REMOTE || $strCommand eq CFGCMD_LOCAL)
         {
             next;
         }
@@ -117,7 +117,7 @@ sub process
 
     foreach my $strOption (sort(keys(%{$oOptionRule})))
     {
-        if ($strOption =~ /^test/ || $strOption eq CFGBLDOPT_ARCHIVE_MAX_MB)
+        if ($strOption =~ /^test/ || $strOption eq CFGCMD_ARCHIVE_MAX_MB)
         {
             next;
         }
@@ -628,7 +628,7 @@ sub manGet
 
             if (defined($strDefault))
             {
-                if ($strOption eq CFGBLDOPT_BACKUP_CMD || $strOption eq CFGBLDOPT_DB_CMD)
+                if ($strOption eq CFGCMD_BACKUP_CMD || $strOption eq CFGCMD_DB_CMD)
                 {
                     $strDefault = BACKREST_EXE;
                 }
@@ -658,31 +658,31 @@ sub manGet
     $strManPage .= "\n\n" .
         "FILES\n" .
         "\n" .
-        '  ' . cfgbldOptionDefault(CFGBLDOPT_CONFIG) . "\n" .
-        '  ' . cfgbldOptionDefault(CFGBLDOPT_REPO_PATH) . "\n" .
-        '  ' . cfgbldOptionDefault(CFGBLDOPT_LOG_PATH) . "\n" .
-        '  ' . cfgbldOptionDefault(CFGBLDOPT_SPOOL_PATH) . "\n" .
-        '  ' . cfgbldOptionDefault(CFGBLDOPT_LOCK_PATH) . "\n" .
+        '  ' . cfgbldOptionDefault(CFGCMD_CONFIG) . "\n" .
+        '  ' . cfgbldOptionDefault(CFGCMD_REPO_PATH) . "\n" .
+        '  ' . cfgbldOptionDefault(CFGCMD_LOG_PATH) . "\n" .
+        '  ' . cfgbldOptionDefault(CFGCMD_SPOOL_PATH) . "\n" .
+        '  ' . cfgbldOptionDefault(CFGCMD_LOCK_PATH) . "\n" .
         "\n" .
         "EXAMPLES\n" .
         "\n" .
         "  * Create a backup of the PostgreSQL `main` cluster:\n" .
         "\n" .
-        '    $ ' . BACKREST_EXE . ' --' . CFGBLDOPT_STANZA . "=main backup\n" .
+        '    $ ' . BACKREST_EXE . ' --' . CFGCMD_STANZA . "=main backup\n" .
         "\n" .
-        '    The `main` cluster should be configured in `' . cfgbldOptionDefault(CFGBLDOPT_CONFIG) . "`\n" .
+        '    The `main` cluster should be configured in `' . cfgbldOptionDefault(CFGCMD_CONFIG) . "`\n" .
         "\n" .
         "  * Show all available backups:\n" .
         "\n" .
-        '    $ ' . BACKREST_EXE . ' ' . CFGBLDCMD_INFO . "\n" .
+        '    $ ' . BACKREST_EXE . ' ' . CFGCMD_INFO . "\n" .
         "\n" .
         "  * Show all available backups for a specific cluster:\n" .
         "\n" .
-        '    $ ' . BACKREST_EXE . ' --' . CFGBLDOPT_STANZA . '=main ' . CFGBLDCMD_INFO . "\n" .
+        '    $ ' . BACKREST_EXE . ' --' . CFGCMD_STANZA . '=main ' . CFGCMD_INFO . "\n" .
         "\n" .
         "  * Show backup specific options:\n" .
         "\n" .
-        '    $ ' . BACKREST_EXE . ' ' . CFGBLDCMD_HELP . ' ' . CFGBLDCMD_BACKUP . "\n" .
+        '    $ ' . BACKREST_EXE . ' ' . CFGCMD_HELP . ' ' . CFGCMD_BACKUP . "\n" .
         "\n" .
         "SEE ALSO\n" .
         "\n" .
@@ -939,7 +939,7 @@ sub helpOptionGet
     {
         my $strDefault;
 
-        if ($strOption eq CFGBLDOPT_BACKUP_CMD || $strOption eq CFGBLDOPT_DB_CMD)
+        if ($strOption eq CFGCMD_BACKUP_CMD || $strOption eq CFGCMD_DB_CMD)
         {
             $strDefault = '[INSTALL-PATH]/' . BACKREST_EXE;
         }

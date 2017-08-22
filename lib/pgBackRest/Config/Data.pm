@@ -9,7 +9,7 @@
 #     List of commands the option can be used with this option.  An empty hash signifies that the command does no deviate from the
 #     option defaults.  Otherwise, overrides can be specified.
 #
-# NOTE: If the option (A) has a dependency on another option (B) then the CFGBLDCMD_ must also be specified in the other option
+# NOTE: If the option (A) has a dependency on another option (B) then the CFGCMD_ must also be specified in the other option
 #         (B), else it will still error on the option (A).
 #
 # CFGBLDDEF_RULE_REQUIRED:
@@ -20,7 +20,7 @@
 #               setting CFGBLDDEF_RULE_REQUIRED in the CFGBLDDEF_RULE_COMMAND section.
 #   In CFGBLDDEF_RULE_COMMAND section:
 #       true - the option must be set somehow for the command, either by default (CFGBLDDEF_RULE_DEFAULT) or by the user.
-# 	        &CFGBLDCMD_CHECK =>
+# 	        &CFGCMD_CHECK =>
 #             {
 #                 &CFGBLDDEF_RULE_REQUIRED => true
 #             },
@@ -65,36 +65,36 @@ use pgBackRest::Version;
 ####################################################################################################################################
 # Command constants - commands that are allowed in pgBackRest
 ####################################################################################################################################
-use constant CFGBLDCMD_ARCHIVE_GET                                  => 'archive-get';
-    push @EXPORT, qw(CFGBLDCMD_ARCHIVE_GET);
-use constant CFGBLDCMD_ARCHIVE_PUSH                                 => 'archive-push';
-    push @EXPORT, qw(CFGBLDCMD_ARCHIVE_PUSH);
-use constant CFGBLDCMD_BACKUP                                       => 'backup';
-    push @EXPORT, qw(CFGBLDCMD_BACKUP);
-use constant CFGBLDCMD_CHECK                                        => 'check';
-    push @EXPORT, qw(CFGBLDCMD_CHECK);
-use constant CFGBLDCMD_EXPIRE                                       => 'expire';
-    push @EXPORT, qw(CFGBLDCMD_EXPIRE);
-use constant CFGBLDCMD_HELP                                         => 'help';
-    push @EXPORT, qw(CFGBLDCMD_HELP);
-use constant CFGBLDCMD_INFO                                         => 'info';
-    push @EXPORT, qw(CFGBLDCMD_INFO);
-use constant CFGBLDCMD_LOCAL                                        => 'local';
-    push @EXPORT, qw(CFGBLDCMD_LOCAL);
-use constant CFGBLDCMD_REMOTE                                       => 'remote';
-    push @EXPORT, qw(CFGBLDCMD_REMOTE);
-use constant CFGBLDCMD_RESTORE                                      => 'restore';
-    push @EXPORT, qw(CFGBLDCMD_RESTORE);
-use constant CFGBLDCMD_STANZA_CREATE                                => 'stanza-create';
-    push @EXPORT, qw(CFGBLDCMD_STANZA_CREATE);
-use constant CFGBLDCMD_STANZA_UPGRADE                               => 'stanza-upgrade';
-    push @EXPORT, qw(CFGBLDCMD_STANZA_UPGRADE);
-use constant CFGBLDCMD_START                                        => 'start';
-    push @EXPORT, qw(CFGBLDCMD_START);
-use constant CFGBLDCMD_STOP                                         => 'stop';
-    push @EXPORT, qw(CFGBLDCMD_STOP);
-use constant CFGBLDCMD_VERSION                                      => 'version';
-    push @EXPORT, qw(CFGBLDCMD_VERSION);
+use constant CFGCMD_ARCHIVE_GET                                     => 'archive-get';
+    push @EXPORT, qw(CFGCMD_ARCHIVE_GET);
+use constant CFGCMD_ARCHIVE_PUSH                                    => 'archive-push';
+    push @EXPORT, qw(CFGCMD_ARCHIVE_PUSH);
+use constant CFGCMD_BACKUP                                          => 'backup';
+    push @EXPORT, qw(CFGCMD_BACKUP);
+use constant CFGCMD_CHECK                                           => 'check';
+    push @EXPORT, qw(CFGCMD_CHECK);
+use constant CFGCMD_EXPIRE                                          => 'expire';
+    push @EXPORT, qw(CFGCMD_EXPIRE);
+use constant CFGCMD_HELP                                            => 'help';
+    push @EXPORT, qw(CFGCMD_HELP);
+use constant CFGCMD_INFO                                            => 'info';
+    push @EXPORT, qw(CFGCMD_INFO);
+use constant CFGCMD_LOCAL                                           => 'local';
+    push @EXPORT, qw(CFGCMD_LOCAL);
+use constant CFGCMD_REMOTE                                          => 'remote';
+    push @EXPORT, qw(CFGCMD_REMOTE);
+use constant CFGCMD_RESTORE                                         => 'restore';
+    push @EXPORT, qw(CFGCMD_RESTORE);
+use constant CFGCMD_STANZA_CREATE                                   => 'stanza-create';
+    push @EXPORT, qw(CFGCMD_STANZA_CREATE);
+use constant CFGCMD_STANZA_UPGRADE                                  => 'stanza-upgrade';
+    push @EXPORT, qw(CFGCMD_STANZA_UPGRADE);
+use constant CFGCMD_START                                           => 'start';
+    push @EXPORT, qw(CFGCMD_START);
+use constant CFGCMD_STOP                                            => 'stop';
+    push @EXPORT, qw(CFGCMD_STOP);
+use constant CFGCMD_VERSION                                         => 'version';
+    push @EXPORT, qw(CFGCMD_VERSION);
 
 ####################################################################################################################################
 # Option constants - options that are allowed for commands
@@ -102,184 +102,184 @@ use constant CFGBLDCMD_VERSION                                      => 'version'
 
 # Command-line only options
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPT_CONFIG                                       => 'config';
-    push @EXPORT, qw(CFGBLDOPT_CONFIG);
-use constant CFGBLDOPT_DELTA                                        => 'delta';
-    push @EXPORT, qw(CFGBLDOPT_DELTA);
-use constant CFGBLDOPT_FORCE                                        => 'force';
-    push @EXPORT, qw(CFGBLDOPT_FORCE);
-use constant CFGBLDOPT_ONLINE                                       => 'online';
-    push @EXPORT, qw(CFGBLDOPT_ONLINE);
-use constant CFGBLDOPT_SET                                          => 'set';
-    push @EXPORT, qw(CFGBLDOPT_SET);
-use constant CFGBLDOPT_STANZA                                       => 'stanza';
-    push @EXPORT, qw(CFGBLDOPT_STANZA);
-use constant CFGBLDOPT_TARGET                                       => 'target';
-    push @EXPORT, qw(CFGBLDOPT_TARGET);
-use constant CFGBLDOPT_TARGET_EXCLUSIVE                             => 'target-exclusive';
-    push @EXPORT, qw(CFGBLDOPT_TARGET_EXCLUSIVE);
-use constant CFGBLDOPT_TARGET_ACTION                                => 'target-action';
-    push @EXPORT, qw(CFGBLDOPT_TARGET_ACTION);
-use constant CFGBLDOPT_TARGET_TIMELINE                              => 'target-timeline';
-    push @EXPORT, qw(CFGBLDOPT_TARGET_TIMELINE);
-use constant CFGBLDOPT_TYPE                                         => 'type';
-    push @EXPORT, qw(CFGBLDOPT_TYPE);
-use constant CFGBLDOPT_OUTPUT                                       => 'output';
-    push @EXPORT, qw(CFGBLDOPT_OUTPUT);
+use constant CFGOPT_CONFIG                                          => 'config';
+    push @EXPORT, qw(CFGOPT_CONFIG);
+use constant CFGOPT_DELTA                                           => 'delta';
+    push @EXPORT, qw(CFGOPT_DELTA);
+use constant CFGOPT_FORCE                                           => 'force';
+    push @EXPORT, qw(CFGOPT_FORCE);
+use constant CFGOPT_ONLINE                                          => 'online';
+    push @EXPORT, qw(CFGOPT_ONLINE);
+use constant CFGOPT_SET                                             => 'set';
+    push @EXPORT, qw(CFGOPT_SET);
+use constant CFGOPT_STANZA                                          => 'stanza';
+    push @EXPORT, qw(CFGOPT_STANZA);
+use constant CFGOPT_TARGET                                          => 'target';
+    push @EXPORT, qw(CFGOPT_TARGET);
+use constant CFGOPT_TARGET_EXCLUSIVE                                => 'target-exclusive';
+    push @EXPORT, qw(CFGOPT_TARGET_EXCLUSIVE);
+use constant CFGOPT_TARGET_ACTION                                   => 'target-action';
+    push @EXPORT, qw(CFGOPT_TARGET_ACTION);
+use constant CFGOPT_TARGET_TIMELINE                                 => 'target-timeline';
+    push @EXPORT, qw(CFGOPT_TARGET_TIMELINE);
+use constant CFGOPT_TYPE                                            => 'type';
+    push @EXPORT, qw(CFGOPT_TYPE);
+use constant CFGOPT_OUTPUT                                          => 'output';
+    push @EXPORT, qw(CFGOPT_OUTPUT);
 
 # Command-line only local/remote optiosn
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPT_COMMAND                                      => 'command';
-    push @EXPORT, qw(CFGBLDOPT_COMMAND);
-use constant CFGBLDOPT_PROCESS                                      => 'process';
-    push @EXPORT, qw(CFGBLDOPT_PROCESS);
-use constant CFGBLDOPT_HOST_ID                                      => 'host-id';
-    push @EXPORT, qw(CFGBLDOPT_HOST_ID);
+use constant CFGOPT_COMMAND                                         => 'command';
+    push @EXPORT, qw(CFGOPT_COMMAND);
+use constant CFGOPT_PROCESS                                         => 'process';
+    push @EXPORT, qw(CFGOPT_PROCESS);
+use constant CFGOPT_HOST_ID                                         => 'host-id';
+    push @EXPORT, qw(CFGOPT_HOST_ID);
 
 # Command-line only test options
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPT_TEST                                         => 'test';
-    push @EXPORT, qw(CFGBLDOPT_TEST);
-use constant CFGBLDOPT_TEST_DELAY                                   => 'test-delay';
-    push @EXPORT, qw(CFGBLDOPT_TEST_DELAY);
-use constant CFGBLDOPT_TEST_POINT                                   => 'test-point';
-    push @EXPORT, qw(CFGBLDOPT_TEST_POINT);
+use constant CFGOPT_TEST                                            => 'test';
+    push @EXPORT, qw(CFGOPT_TEST);
+use constant CFGOPT_TEST_DELAY                                      => 'test-delay';
+    push @EXPORT, qw(CFGOPT_TEST_DELAY);
+use constant CFGOPT_TEST_POINT                                      => 'test-point';
+    push @EXPORT, qw(CFGOPT_TEST_POINT);
 
 # General options
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPT_ARCHIVE_TIMEOUT                              => 'archive-timeout';
-    push @EXPORT, qw(CFGBLDOPT_ARCHIVE_TIMEOUT);
-use constant CFGBLDOPT_BUFFER_SIZE                                  => 'buffer-size';
-    push @EXPORT, qw(CFGBLDOPT_BUFFER_SIZE);
-use constant CFGBLDOPT_DB_TIMEOUT                                   => 'db-timeout';
-    push @EXPORT, qw(CFGBLDOPT_DB_TIMEOUT);
-use constant CFGBLDOPT_COMPRESS                                     => 'compress';
-    push @EXPORT, qw(CFGBLDOPT_COMPRESS);
-use constant CFGBLDOPT_COMPRESS_LEVEL                               => 'compress-level';
-    push @EXPORT, qw(CFGBLDOPT_COMPRESS_LEVEL);
-use constant CFGBLDOPT_COMPRESS_LEVEL_NETWORK                       => 'compress-level-network';
-    push @EXPORT, qw(CFGBLDOPT_COMPRESS_LEVEL_NETWORK);
-use constant CFGBLDOPT_NEUTRAL_UMASK                                => 'neutral-umask';
-    push @EXPORT, qw(CFGBLDOPT_NEUTRAL_UMASK);
-use constant CFGBLDOPT_PROTOCOL_TIMEOUT                             => 'protocol-timeout';
-    push @EXPORT, qw(CFGBLDOPT_PROTOCOL_TIMEOUT);
-use constant CFGBLDOPT_PROCESS_MAX                                  => 'process-max';
-    push @EXPORT, qw(CFGBLDOPT_PROCESS_MAX);
+use constant CFGOPT_ARCHIVE_TIMEOUT                                 => 'archive-timeout';
+    push @EXPORT, qw(CFGOPT_ARCHIVE_TIMEOUT);
+use constant CFGOPT_BUFFER_SIZE                                     => 'buffer-size';
+    push @EXPORT, qw(CFGOPT_BUFFER_SIZE);
+use constant CFGOPT_DB_TIMEOUT                                      => 'db-timeout';
+    push @EXPORT, qw(CFGOPT_DB_TIMEOUT);
+use constant CFGOPT_COMPRESS                                        => 'compress';
+    push @EXPORT, qw(CFGOPT_COMPRESS);
+use constant CFGOPT_COMPRESS_LEVEL                                  => 'compress-level';
+    push @EXPORT, qw(CFGOPT_COMPRESS_LEVEL);
+use constant CFGOPT_COMPRESS_LEVEL_NETWORK                          => 'compress-level-network';
+    push @EXPORT, qw(CFGOPT_COMPRESS_LEVEL_NETWORK);
+use constant CFGOPT_NEUTRAL_UMASK                                   => 'neutral-umask';
+    push @EXPORT, qw(CFGOPT_NEUTRAL_UMASK);
+use constant CFGOPT_PROTOCOL_TIMEOUT                                => 'protocol-timeout';
+    push @EXPORT, qw(CFGOPT_PROTOCOL_TIMEOUT);
+use constant CFGOPT_PROCESS_MAX                                     => 'process-max';
+    push @EXPORT, qw(CFGOPT_PROCESS_MAX);
 
 # Commands
-use constant CFGBLDOPT_CMD_SSH                                      => 'cmd-ssh';
-    push @EXPORT, qw(CFGBLDOPT_CMD_SSH);
+use constant CFGOPT_CMD_SSH                                         => 'cmd-ssh';
+    push @EXPORT, qw(CFGOPT_CMD_SSH);
 
 # Paths
-use constant CFGBLDOPT_LOCK_PATH                                    => 'lock-path';
-    push @EXPORT, qw(CFGBLDOPT_LOCK_PATH);
-use constant CFGBLDOPT_LOG_PATH                                     => 'log-path';
-    push @EXPORT, qw(CFGBLDOPT_LOG_PATH);
-use constant CFGBLDOPT_SPOOL_PATH                                   => 'spool-path';
-    push @EXPORT, qw(CFGBLDOPT_SPOOL_PATH);
+use constant CFGOPT_LOCK_PATH                                       => 'lock-path';
+    push @EXPORT, qw(CFGOPT_LOCK_PATH);
+use constant CFGOPT_LOG_PATH                                        => 'log-path';
+    push @EXPORT, qw(CFGOPT_LOG_PATH);
+use constant CFGOPT_SPOOL_PATH                                      => 'spool-path';
+    push @EXPORT, qw(CFGOPT_SPOOL_PATH);
 
 # Repository
-use constant CFGBLDOPT_REPO_PATH                                    => 'repo-path';
-    push @EXPORT, qw(CFGBLDOPT_REPO_PATH);
-use constant CFGBLDOPT_REPO_TYPE                                    => 'repo-type';
-    push @EXPORT, qw(CFGBLDOPT_REPO_TYPE);
+use constant CFGOPT_REPO_PATH                                       => 'repo-path';
+    push @EXPORT, qw(CFGOPT_REPO_PATH);
+use constant CFGOPT_REPO_TYPE                                       => 'repo-type';
+    push @EXPORT, qw(CFGOPT_REPO_TYPE);
 
 # Repository S3
-use constant CFGBLDOPT_REPO_S3_KEY                                  => 'repo-s3-key';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_KEY);
-use constant CFGBLDOPT_REPO_S3_KEY_SECRET                           => 'repo-s3-key-secret';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_KEY_SECRET);
-use constant CFGBLDOPT_REPO_S3_BUCKET                               => 'repo-s3-bucket';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_BUCKET);
-use constant CFGBLDOPT_REPO_S3_CA_FILE                              => 'repo-s3-ca-file';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_CA_FILE);
-use constant CFGBLDOPT_REPO_S3_CA_PATH                              => 'repo-s3-ca-path';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_CA_PATH);
-use constant CFGBLDOPT_REPO_S3_ENDPOINT                             => 'repo-s3-endpoint';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_ENDPOINT);
-use constant CFGBLDOPT_REPO_S3_HOST                                 => 'repo-s3-host';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_HOST);
-use constant CFGBLDOPT_REPO_S3_REGION                               => 'repo-s3-region';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_REGION);
-use constant CFGBLDOPT_REPO_S3_VERIFY_SSL                           => 'repo-s3-verify-ssl';
-    push @EXPORT, qw(CFGBLDOPT_REPO_S3_VERIFY_SSL);
+use constant CFGOPT_REPO_S3_KEY                                     => 'repo-s3-key';
+    push @EXPORT, qw(CFGOPT_REPO_S3_KEY);
+use constant CFGOPT_REPO_S3_KEY_SECRET                              => 'repo-s3-key-secret';
+    push @EXPORT, qw(CFGOPT_REPO_S3_KEY_SECRET);
+use constant CFGOPT_REPO_S3_BUCKET                                  => 'repo-s3-bucket';
+    push @EXPORT, qw(CFGOPT_REPO_S3_BUCKET);
+use constant CFGOPT_REPO_S3_CA_FILE                                 => 'repo-s3-ca-file';
+    push @EXPORT, qw(CFGOPT_REPO_S3_CA_FILE);
+use constant CFGOPT_REPO_S3_CA_PATH                                 => 'repo-s3-ca-path';
+    push @EXPORT, qw(CFGOPT_REPO_S3_CA_PATH);
+use constant CFGOPT_REPO_S3_ENDPOINT                                => 'repo-s3-endpoint';
+    push @EXPORT, qw(CFGOPT_REPO_S3_ENDPOINT);
+use constant CFGOPT_REPO_S3_HOST                                    => 'repo-s3-host';
+    push @EXPORT, qw(CFGOPT_REPO_S3_HOST);
+use constant CFGOPT_REPO_S3_REGION                                  => 'repo-s3-region';
+    push @EXPORT, qw(CFGOPT_REPO_S3_REGION);
+use constant CFGOPT_REPO_S3_VERIFY_SSL                              => 'repo-s3-verify-ssl';
+    push @EXPORT, qw(CFGOPT_REPO_S3_VERIFY_SSL);
 
 # Logging
-use constant CFGBLDOPT_LOG_LEVEL_CONSOLE                            => 'log-level-console';
-    push @EXPORT, qw(CFGBLDOPT_LOG_LEVEL_CONSOLE);
-use constant CFGBLDOPT_LOG_LEVEL_FILE                               => 'log-level-file';
-    push @EXPORT, qw(CFGBLDOPT_LOG_LEVEL_FILE);
-use constant CFGBLDOPT_LOG_LEVEL_STDERR                             => 'log-level-stderr';
-    push @EXPORT, qw(CFGBLDOPT_LOG_LEVEL_STDERR);
-use constant CFGBLDOPT_LOG_TIMESTAMP                                => 'log-timestamp';
-    push @EXPORT, qw(CFGBLDOPT_LOG_TIMESTAMP);
+use constant CFGOPT_LOG_LEVEL_CONSOLE                               => 'log-level-console';
+    push @EXPORT, qw(CFGOPT_LOG_LEVEL_CONSOLE);
+use constant CFGOPT_LOG_LEVEL_FILE                                  => 'log-level-file';
+    push @EXPORT, qw(CFGOPT_LOG_LEVEL_FILE);
+use constant CFGOPT_LOG_LEVEL_STDERR                                => 'log-level-stderr';
+    push @EXPORT, qw(CFGOPT_LOG_LEVEL_STDERR);
+use constant CFGOPT_LOG_TIMESTAMP                                   => 'log-timestamp';
+    push @EXPORT, qw(CFGOPT_LOG_TIMESTAMP);
 
 # Archive options
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPT_ARCHIVE_ASYNC                                => 'archive-async';
-    push @EXPORT, qw(CFGBLDOPT_ARCHIVE_ASYNC);
+use constant CFGOPT_ARCHIVE_ASYNC                                   => 'archive-async';
+    push @EXPORT, qw(CFGOPT_ARCHIVE_ASYNC);
 # Deprecated and to be removed
-use constant CFGBLDOPT_ARCHIVE_MAX_MB                               => 'archive-max-mb';
-    push @EXPORT, qw(CFGBLDOPT_ARCHIVE_MAX_MB);
-use constant CFGBLDOPT_ARCHIVE_QUEUE_MAX                            => 'archive-queue-max';
-    push @EXPORT, qw(CFGBLDOPT_ARCHIVE_QUEUE_MAX);
+use constant CFGOPT_ARCHIVE_MAX_MB                                  => 'archive-max-mb';
+    push @EXPORT, qw(CFGOPT_ARCHIVE_MAX_MB);
+use constant CFGOPT_ARCHIVE_QUEUE_MAX                               => 'archive-queue-max';
+    push @EXPORT, qw(CFGOPT_ARCHIVE_QUEUE_MAX);
 
 # Backup options
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPT_ARCHIVE_CHECK                                => 'archive-check';
-    push @EXPORT, qw(CFGBLDOPT_ARCHIVE_CHECK);
-use constant CFGBLDOPT_BACKUP_ARCHIVE_COPY                          => 'archive-copy';
-    push @EXPORT, qw(CFGBLDOPT_BACKUP_ARCHIVE_COPY);
-use constant CFGBLDOPT_BACKUP_CMD                                   => 'backup-cmd';
-    push @EXPORT, qw(CFGBLDOPT_BACKUP_CMD);
-use constant CFGBLDOPT_BACKUP_CONFIG                                => 'backup-config';
-    push @EXPORT, qw(CFGBLDOPT_BACKUP_CONFIG);
-use constant CFGBLDOPT_BACKUP_HOST                                  => 'backup-host';
-    push @EXPORT, qw(CFGBLDOPT_BACKUP_HOST);
-use constant CFGBLDOPT_BACKUP_SSH_PORT                              => 'backup-ssh-port';
-    push @EXPORT, qw(CFGBLDOPT_BACKUP_SSH_PORT);
-use constant CFGBLDOPT_BACKUP_STANDBY                               => 'backup-standby';
-    push @EXPORT, qw(CFGBLDOPT_BACKUP_STANDBY);
-use constant CFGBLDOPT_BACKUP_USER                                  => 'backup-user';
-    push @EXPORT, qw(CFGBLDOPT_BACKUP_USER);
-use constant CFGBLDOPT_CHECKSUM_PAGE                                => 'checksum-page';
-    push @EXPORT, qw(CFGBLDOPT_CHECKSUM_PAGE);
-use constant CFGBLDOPT_HARDLINK                                     => 'hardlink';
-    push @EXPORT, qw(CFGBLDOPT_HARDLINK);
-use constant CFGBLDOPT_MANIFEST_SAVE_THRESHOLD                      => 'manifest-save-threshold';
-    push @EXPORT, qw(CFGBLDOPT_MANIFEST_SAVE_THRESHOLD);
-use constant CFGBLDOPT_RESUME                                       => 'resume';
-    push @EXPORT, qw(CFGBLDOPT_RESUME);
-use constant CFGBLDOPT_START_FAST                                   => 'start-fast';
-    push @EXPORT, qw(CFGBLDOPT_START_FAST);
-use constant CFGBLDOPT_STOP_AUTO                                    => 'stop-auto';
-    push @EXPORT, qw(CFGBLDOPT_STOP_AUTO);
+use constant CFGOPT_ARCHIVE_CHECK                                   => 'archive-check';
+    push @EXPORT, qw(CFGOPT_ARCHIVE_CHECK);
+use constant CFGOPT_BACKUP_ARCHIVE_COPY                             => 'archive-copy';
+    push @EXPORT, qw(CFGOPT_BACKUP_ARCHIVE_COPY);
+use constant CFGOPT_BACKUP_CMD                                      => 'backup-cmd';
+    push @EXPORT, qw(CFGOPT_BACKUP_CMD);
+use constant CFGOPT_BACKUP_CONFIG                                   => 'backup-config';
+    push @EXPORT, qw(CFGOPT_BACKUP_CONFIG);
+use constant CFGOPT_BACKUP_HOST                                     => 'backup-host';
+    push @EXPORT, qw(CFGOPT_BACKUP_HOST);
+use constant CFGOPT_BACKUP_SSH_PORT                                 => 'backup-ssh-port';
+    push @EXPORT, qw(CFGOPT_BACKUP_SSH_PORT);
+use constant CFGOPT_BACKUP_STANDBY                                  => 'backup-standby';
+    push @EXPORT, qw(CFGOPT_BACKUP_STANDBY);
+use constant CFGOPT_BACKUP_USER                                     => 'backup-user';
+    push @EXPORT, qw(CFGOPT_BACKUP_USER);
+use constant CFGOPT_CHECKSUM_PAGE                                   => 'checksum-page';
+    push @EXPORT, qw(CFGOPT_CHECKSUM_PAGE);
+use constant CFGOPT_HARDLINK                                        => 'hardlink';
+    push @EXPORT, qw(CFGOPT_HARDLINK);
+use constant CFGOPT_MANIFEST_SAVE_THRESHOLD                         => 'manifest-save-threshold';
+    push @EXPORT, qw(CFGOPT_MANIFEST_SAVE_THRESHOLD);
+use constant CFGOPT_RESUME                                          => 'resume';
+    push @EXPORT, qw(CFGOPT_RESUME);
+use constant CFGOPT_START_FAST                                      => 'start-fast';
+    push @EXPORT, qw(CFGOPT_START_FAST);
+use constant CFGOPT_STOP_AUTO                                       => 'stop-auto';
+    push @EXPORT, qw(CFGOPT_STOP_AUTO);
 
 # Expire options
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPT_RETENTION_ARCHIVE                            => 'retention-archive';
-    push @EXPORT, qw(CFGBLDOPT_RETENTION_ARCHIVE);
-use constant CFGBLDOPT_RETENTION_ARCHIVE_TYPE                       => 'retention-archive-type';
-    push @EXPORT, qw(CFGBLDOPT_RETENTION_ARCHIVE_TYPE);
-use constant CFGBLDOPT_RETENTION_DIFF                               => 'retention-diff';
-    push @EXPORT, qw(CFGBLDOPT_RETENTION_DIFF);
-use constant CFGBLDOPT_RETENTION_FULL                               => 'retention-full';
-    push @EXPORT, qw(CFGBLDOPT_RETENTION_FULL);
+use constant CFGOPT_RETENTION_ARCHIVE                               => 'retention-archive';
+    push @EXPORT, qw(CFGOPT_RETENTION_ARCHIVE);
+use constant CFGOPT_RETENTION_ARCHIVE_TYPE                          => 'retention-archive-type';
+    push @EXPORT, qw(CFGOPT_RETENTION_ARCHIVE_TYPE);
+use constant CFGOPT_RETENTION_DIFF                                  => 'retention-diff';
+    push @EXPORT, qw(CFGOPT_RETENTION_DIFF);
+use constant CFGOPT_RETENTION_FULL                                  => 'retention-full';
+    push @EXPORT, qw(CFGOPT_RETENTION_FULL);
 
 # Restore options
 #-----------------------------------------------------------------------------------------------------------------------------------
-use constant CFGBLDOPT_DB_INCLUDE                                   => 'db-include';
-    push @EXPORT, qw(CFGBLDOPT_DB_INCLUDE);
-use constant CFGBLDOPT_LINK_ALL                                     => 'link-all';
-    push @EXPORT, qw(CFGBLDOPT_LINK_ALL);
-use constant CFGBLDOPT_LINK_MAP                                     => 'link-map';
-    push @EXPORT, qw(CFGBLDOPT_LINK_MAP);
-use constant CFGBLDOPT_TABLESPACE_MAP_ALL                           => 'tablespace-map-all';
-    push @EXPORT, qw(CFGBLDOPT_TABLESPACE_MAP_ALL);
-use constant CFGBLDOPT_TABLESPACE_MAP                               => 'tablespace-map';
-    push @EXPORT, qw(CFGBLDOPT_TABLESPACE_MAP);
-use constant CFGBLDOPT_RECOVERY_OPTION                              => 'recovery-option';
-    push @EXPORT, qw(CFGBLDOPT_RECOVERY_OPTION);
+use constant CFGOPT_DB_INCLUDE                                      => 'db-include';
+    push @EXPORT, qw(CFGOPT_DB_INCLUDE);
+use constant CFGOPT_LINK_ALL                                        => 'link-all';
+    push @EXPORT, qw(CFGOPT_LINK_ALL);
+use constant CFGOPT_LINK_MAP                                        => 'link-map';
+    push @EXPORT, qw(CFGOPT_LINK_MAP);
+use constant CFGOPT_TABLESPACE_MAP_ALL                              => 'tablespace-map-all';
+    push @EXPORT, qw(CFGOPT_TABLESPACE_MAP_ALL);
+use constant CFGOPT_TABLESPACE_MAP                                  => 'tablespace-map';
+    push @EXPORT, qw(CFGOPT_TABLESPACE_MAP);
+use constant CFGOPT_RECOVERY_OPTION                                 => 'recovery-option';
+    push @EXPORT, qw(CFGOPT_RECOVERY_OPTION);
 
 # Stanza options
 #-----------------------------------------------------------------------------------------------------------------------------------
@@ -287,24 +287,24 @@ use constant CFGBLDOPT_RECOVERY_OPTION                              => 'recovery
 use constant CFGBLDOPTDEF_INDEX_DB                                  => 2;
 
 # Prefix that must be used by all db options that allow multiple configurations
-use constant CFGBLDOPT_PREFIX_DB                                    => 'db';
+use constant CFGOPT_PREFIX_DB                                       => 'db';
 
-use constant CFGBLDOPT_DB_CMD                                       => CFGBLDOPT_PREFIX_DB . '-cmd';
-    push @EXPORT, qw(CFGBLDOPT_DB_CMD);
-use constant CFGBLDOPT_DB_CONFIG                                    => CFGBLDOPT_PREFIX_DB . '-config';
-    push @EXPORT, qw(CFGBLDOPT_DB_CONFIG);
-use constant CFGBLDOPT_DB_HOST                                      => CFGBLDOPT_PREFIX_DB . '-host';
-    push @EXPORT, qw(CFGBLDOPT_DB_HOST);
-use constant CFGBLDOPT_DB_PATH                                      => CFGBLDOPT_PREFIX_DB . '-path';
-    push @EXPORT, qw(CFGBLDOPT_DB_PATH);
-use constant CFGBLDOPT_DB_PORT                                      => CFGBLDOPT_PREFIX_DB . '-port';
-    push @EXPORT, qw(CFGBLDOPT_DB_PORT);
-use constant CFGBLDOPT_DB_SSH_PORT                                  => CFGBLDOPT_PREFIX_DB . '-ssh-port';
-    push @EXPORT, qw(CFGBLDOPT_DB_SSH_PORT);
-use constant CFGBLDOPT_DB_SOCKET_PATH                               => CFGBLDOPT_PREFIX_DB . '-socket-path';
-    push @EXPORT, qw(CFGBLDOPT_DB_SOCKET_PATH);
-use constant CFGBLDOPT_DB_USER                                      => CFGBLDOPT_PREFIX_DB . '-user';
-    push @EXPORT, qw(CFGBLDOPT_DB_USER);
+use constant CFGOPT_DB_CMD                                          => CFGOPT_PREFIX_DB . '-cmd';
+    push @EXPORT, qw(CFGOPT_DB_CMD);
+use constant CFGOPT_DB_CONFIG                                       => CFGOPT_PREFIX_DB . '-config';
+    push @EXPORT, qw(CFGOPT_DB_CONFIG);
+use constant CFGOPT_DB_HOST                                         => CFGOPT_PREFIX_DB . '-host';
+    push @EXPORT, qw(CFGOPT_DB_HOST);
+use constant CFGOPT_DB_PATH                                         => CFGOPT_PREFIX_DB . '-path';
+    push @EXPORT, qw(CFGOPT_DB_PATH);
+use constant CFGOPT_DB_PORT                                         => CFGOPT_PREFIX_DB . '-port';
+    push @EXPORT, qw(CFGOPT_DB_PORT);
+use constant CFGOPT_DB_SSH_PORT                                     => CFGOPT_PREFIX_DB . '-ssh-port';
+    push @EXPORT, qw(CFGOPT_DB_SSH_PORT);
+use constant CFGOPT_DB_SOCKET_PATH                                  => CFGOPT_PREFIX_DB . '-socket-path';
+    push @EXPORT, qw(CFGOPT_DB_SOCKET_PATH);
+use constant CFGOPT_DB_USER                                         => CFGOPT_PREFIX_DB . '-user';
+    push @EXPORT, qw(CFGOPT_DB_USER);
 
 ####################################################################################################################################
 # Option values - for options that have a specific list of allowed values
@@ -433,142 +433,142 @@ my %hOptionRule =
 (
     # Command-line only options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_CONFIG =>
+    &CFGOPT_CONFIG =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => CFGBLDDEF_DEFAULT_CONFIG,
         &CFGBLDDEF_RULE_NEGATE => true,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         }
     },
 
-    &CFGBLDOPT_DELTA =>
+    &CFGOPT_DELTA =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE =>
+            &CFGCMD_RESTORE =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => false,
             }
         }
     },
 
-    &CFGBLDOPT_FORCE =>
+    &CFGOPT_FORCE =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP =>
+            &CFGCMD_BACKUP =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => false,
                 &CFGBLDDEF_RULE_DEPEND =>
                 {
-                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_ONLINE,
+                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_ONLINE,
                     &CFGBLDDEF_RULE_DEPEND_LIST => [false],
                 },
             },
 
-            &CFGBLDCMD_RESTORE =>
+            &CFGCMD_RESTORE =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => false,
             },
 
-            &CFGBLDCMD_STANZA_CREATE =>
+            &CFGCMD_STANZA_CREATE =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => false,
             },
 
-            &CFGBLDCMD_STOP =>
+            &CFGCMD_STOP =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => false
             }
         }
     },
 
-    &CFGBLDOPT_ONLINE =>
+    &CFGOPT_ONLINE =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_NEGATE => true,
         &CFGBLDDEF_RULE_DEFAULT => true,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         }
     },
 
-    &CFGBLDOPT_SET =>
+    &CFGOPT_SET =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE =>
+            &CFGCMD_RESTORE =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => 'latest',
             }
         }
     },
 
-    &CFGBLDOPT_STANZA =>
+    &CFGOPT_STANZA =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO =>
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false
             },
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE =>
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false
             },
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START =>
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false
             },
-            &CFGBLDCMD_STOP =>
+            &CFGCMD_STOP =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false
             }
         }
     },
 
-    &CFGBLDOPT_TARGET =>
+    &CFGOPT_TARGET =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE =>
+            &CFGCMD_RESTORE =>
             {
                 &CFGBLDDEF_RULE_DEPEND =>
                 {
-                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_TYPE,
+                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
                     &CFGBLDDEF_RULE_DEPEND_LIST =>
                     [
                         &CFGBLDOPTVAL_RESTORE_TYPE_NAME,
@@ -580,17 +580,17 @@ my %hOptionRule =
         },
     },
 
-    &CFGBLDOPT_TARGET_EXCLUSIVE =>
+    &CFGOPT_TARGET_EXCLUSIVE =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE =>
+            &CFGCMD_RESTORE =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => false,
                 &CFGBLDDEF_RULE_DEPEND =>
                 {
-                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_TYPE,
+                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
                     &CFGBLDDEF_RULE_DEPEND_LIST =>
                     [
                         &CFGBLDOPTVAL_RESTORE_TYPE_TIME,
@@ -601,12 +601,12 @@ my %hOptionRule =
         },
     },
 
-    &CFGBLDOPT_TARGET_ACTION =>
+    &CFGOPT_TARGET_ACTION =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE =>
+            &CFGCMD_RESTORE =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_RESTORE_TARGET_ACTION_PAUSE,
 
@@ -619,7 +619,7 @@ my %hOptionRule =
 
                 &CFGBLDDEF_RULE_DEPEND =>
                 {
-                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_TYPE,
+                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
                     &CFGBLDDEF_RULE_DEPEND_LIST =>
                     [
                         &CFGBLDOPTVAL_RESTORE_TYPE_NAME,
@@ -631,17 +631,17 @@ my %hOptionRule =
         },
     },
 
-    &CFGBLDOPT_TARGET_TIMELINE =>
+    &CFGOPT_TARGET_TIMELINE =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE =>
+            &CFGCMD_RESTORE =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false,
                 &CFGBLDDEF_RULE_DEPEND =>
                 {
-                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_TYPE,
+                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
                     &CFGBLDDEF_RULE_DEPEND_LIST =>
                     [
                         &CFGBLDOPTVAL_RESTORE_TYPE_DEFAULT,
@@ -654,12 +654,12 @@ my %hOptionRule =
         },
     },
 
-    &CFGBLDOPT_TYPE =>
+    &CFGOPT_TYPE =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP =>
+            &CFGCMD_BACKUP =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_BACKUP_TYPE_INCR,
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
@@ -670,7 +670,7 @@ my %hOptionRule =
                 ]
             },
 
-            &CFGBLDCMD_LOCAL =>
+            &CFGCMD_LOCAL =>
             {
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
                 [
@@ -679,7 +679,7 @@ my %hOptionRule =
                 ],
             },
 
-            &CFGBLDCMD_REMOTE =>
+            &CFGCMD_REMOTE =>
             {
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
                 [
@@ -688,7 +688,7 @@ my %hOptionRule =
                 ],
             },
 
-            &CFGBLDCMD_RESTORE =>
+            &CFGCMD_RESTORE =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_RESTORE_TYPE_DEFAULT,
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
@@ -705,12 +705,12 @@ my %hOptionRule =
         }
     },
 
-    &CFGBLDOPT_OUTPUT =>
+    &CFGOPT_OUTPUT =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_INFO =>
+            &CFGCMD_INFO =>
             {
                 &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_INFO_OUTPUT_TEXT,
                 &CFGBLDDEF_RULE_ALLOW_LIST =>
@@ -724,35 +724,35 @@ my %hOptionRule =
 
     # Command-line only local/remote options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_COMMAND =>
+    &CFGOPT_COMMAND =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
         }
     },
 
-    &CFGBLDOPT_HOST_ID =>
+    &CFGOPT_HOST_ID =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_LOCAL => {},
+            &CFGCMD_LOCAL => {},
         },
     },
 
-    &CFGBLDOPT_PROCESS =>
+    &CFGOPT_PROCESS =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_LOCAL =>
+            &CFGCMD_LOCAL =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => true,
             },
-            &CFGBLDCMD_REMOTE =>
+            &CFGCMD_REMOTE =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false,
             },
@@ -761,40 +761,40 @@ my %hOptionRule =
 
     # Command-line only test options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_TEST =>
+    &CFGOPT_TEST =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
         }
     },
 
-    &CFGBLDOPT_TEST_DELAY =>
+    &CFGOPT_TEST_DELAY =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_FLOAT,
         &CFGBLDDEF_RULE_DEFAULT => 5,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_TEST,
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TEST,
             &CFGBLDDEF_RULE_DEPEND_LIST => [true],
         },
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_TEST,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_TEST,
     },
 
-    &CFGBLDOPT_TEST_POINT =>
+    &CFGOPT_TEST_POINT =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_HASH,
         &CFGBLDDEF_RULE_REQUIRED => false,
-        &CFGBLDDEF_RULE_DEPEND => CFGBLDOPT_TEST_DELAY,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_TEST,
+        &CFGBLDDEF_RULE_DEPEND => CFGOPT_TEST_DELAY,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_TEST,
     },
 
     # General options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_ARCHIVE_TIMEOUT =>
+    &CFGOPT_ARCHIVE_TIMEOUT =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_FLOAT,
@@ -802,13 +802,13 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [WAIT_TIME_MINIMUM, 86400],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
         },
     },
 
-    &CFGBLDOPT_BUFFER_SIZE =>
+    &CFGOPT_BUFFER_SIZE =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
@@ -829,21 +829,21 @@ my %hOptionRule =
         ],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         }
     },
 
-    &CFGBLDOPT_DB_TIMEOUT =>
+    &CFGOPT_DB_TIMEOUT =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_FLOAT,
@@ -851,32 +851,32 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_DB_TIMEOUT_MIN, CFGBLDDEF_DEFAULT_DB_TIMEOUT_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         }
     },
 
-    &CFGBLDOPT_COMPRESS =>
+    &CFGOPT_COMPRESS =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => true,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_RESTORE => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_RESTORE => {},
         }
     },
 
-    &CFGBLDOPT_COMPRESS_LEVEL =>
+    &CFGOPT_COMPRESS_LEVEL =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
@@ -884,20 +884,20 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MIN, CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         }
     },
 
-    &CFGBLDOPT_COMPRESS_LEVEL_NETWORK =>
+    &CFGOPT_COMPRESS_LEVEL_NETWORK =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
@@ -905,109 +905,109 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MIN, CFGBLDDEF_DEFAULT_COMPRESS_LEVEL_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         }
     },
 
-    &CFGBLDOPT_NEUTRAL_UMASK =>
+    &CFGOPT_NEUTRAL_UMASK =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => true,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         }
     },
 
-    &CFGBLDOPT_CMD_SSH =>
+    &CFGOPT_CMD_SSH =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => 'ssh',
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         },
     },
 
-    &CFGBLDOPT_LOCK_PATH =>
+    &CFGOPT_LOCK_PATH =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => '/tmp/' . BACKREST_EXE,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         },
     },
 
-    &CFGBLDOPT_LOG_PATH =>
+    &CFGOPT_LOG_PATH =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => '/var/log/' . BACKREST_EXE,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         },
     },
 
-    &CFGBLDOPT_PROTOCOL_TIMEOUT =>
+    &CFGOPT_PROTOCOL_TIMEOUT =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_FLOAT,
@@ -1015,58 +1015,58 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_DB_TIMEOUT_MIN, CFGBLDDEF_DEFAULT_DB_TIMEOUT_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         }
     },
 
-    &CFGBLDOPT_REPO_PATH =>
+    &CFGOPT_REPO_PATH =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => '/var/lib/' . BACKREST_EXE,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         },
     },
 
-    &CFGBLDOPT_REPO_S3_BUCKET =>
+    &CFGOPT_REPO_S3_BUCKET =>
     {
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_REPO_TYPE,
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_REPO_TYPE,
             &CFGBLDDEF_RULE_DEPEND_LIST => [CFGBLDOPTVAL_REPO_TYPE_S3],
         },
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_REPO_TYPE,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_REPO_TYPE,
     },
 
-    &CFGBLDOPT_REPO_S3_CA_FILE => &CFGBLDOPT_REPO_S3_HOST,
-    &CFGBLDOPT_REPO_S3_CA_PATH => &CFGBLDOPT_REPO_S3_HOST,
+    &CFGOPT_REPO_S3_CA_FILE => &CFGOPT_REPO_S3_HOST,
+    &CFGOPT_REPO_S3_CA_PATH => &CFGOPT_REPO_S3_HOST,
 
-    &CFGBLDOPT_REPO_S3_KEY =>
+    &CFGOPT_REPO_S3_KEY =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
@@ -1074,37 +1074,37 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_REPO_TYPE,
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_REPO_TYPE,
             &CFGBLDDEF_RULE_DEPEND_LIST => [CFGBLDOPTVAL_REPO_TYPE_S3],
         },
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_REPO_TYPE,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_REPO_TYPE,
     },
 
-    &CFGBLDOPT_REPO_S3_KEY_SECRET => CFGBLDOPT_REPO_S3_KEY,
+    &CFGOPT_REPO_S3_KEY_SECRET => CFGOPT_REPO_S3_KEY,
 
-    &CFGBLDOPT_REPO_S3_ENDPOINT => CFGBLDOPT_REPO_S3_BUCKET,
+    &CFGOPT_REPO_S3_ENDPOINT => CFGOPT_REPO_S3_BUCKET,
 
-    &CFGBLDOPT_REPO_S3_HOST =>
+    &CFGOPT_REPO_S3_HOST =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_REQUIRED  => false,
-        &CFGBLDDEF_RULE_DEPEND => CFGBLDOPT_REPO_S3_BUCKET,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_REPO_TYPE,
+        &CFGBLDDEF_RULE_DEPEND => CFGOPT_REPO_S3_BUCKET,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_REPO_TYPE,
     },
 
-    &CFGBLDOPT_REPO_S3_REGION => CFGBLDOPT_REPO_S3_BUCKET,
+    &CFGOPT_REPO_S3_REGION => CFGOPT_REPO_S3_BUCKET,
 
-    &CFGBLDOPT_REPO_S3_VERIFY_SSL =>
+    &CFGOPT_REPO_S3_VERIFY_SSL =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => true,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_REPO_TYPE,
-        &CFGBLDDEF_RULE_DEPEND => CFGBLDOPT_REPO_S3_BUCKET,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_REPO_TYPE,
+        &CFGBLDDEF_RULE_DEPEND => CFGOPT_REPO_S3_BUCKET,
     },
 
-    &CFGBLDOPT_REPO_TYPE =>
+    &CFGOPT_REPO_TYPE =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
@@ -1117,39 +1117,39 @@ my %hOptionRule =
         ],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         },
     },
 
-    &CFGBLDOPT_SPOOL_PATH =>
+    &CFGOPT_SPOOL_PATH =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => '/var/spool/' . BACKREST_EXE,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
         },
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_ARCHIVE_ASYNC,
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_ARCHIVE_ASYNC,
             &CFGBLDDEF_RULE_DEPEND_LIST => [true],
         },
     },
 
-    &CFGBLDOPT_PROCESS_MAX =>
+    &CFGOPT_PROCESS_MAX =>
     {
         &CFGBLDDEF_RULE_ALT_NAME => 'thread-max',
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
@@ -1158,15 +1158,15 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [1, 96],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_RESTORE => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_RESTORE => {},
         }
     },
 
     # Logging options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_LOG_LEVEL_CONSOLE =>
+    &CFGOPT_LOG_LEVEL_CONSOLE =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
@@ -1183,284 +1183,284 @@ my %hOptionRule =
         ],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         }
     },
 
-    &CFGBLDOPT_LOG_LEVEL_FILE =>
+    &CFGOPT_LOG_LEVEL_FILE =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => lc(INFO),
-        &CFGBLDDEF_RULE_ALLOW_LIST => CFGBLDOPT_LOG_LEVEL_CONSOLE,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_LOG_LEVEL_CONSOLE,
+        &CFGBLDDEF_RULE_ALLOW_LIST => CFGOPT_LOG_LEVEL_CONSOLE,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_LOG_LEVEL_CONSOLE,
     },
 
-    &CFGBLDOPT_LOG_LEVEL_STDERR =>
+    &CFGOPT_LOG_LEVEL_STDERR =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => lc(WARN),
-        &CFGBLDDEF_RULE_ALLOW_LIST => CFGBLDOPT_LOG_LEVEL_CONSOLE,
+        &CFGBLDDEF_RULE_ALLOW_LIST => CFGOPT_LOG_LEVEL_CONSOLE,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         }
     },
 
-    &CFGBLDOPT_LOG_TIMESTAMP =>
+    &CFGOPT_LOG_TIMESTAMP =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => true,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_LOG_LEVEL_CONSOLE,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_LOG_LEVEL_CONSOLE,
     },
 
     # Archive options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_ARCHIVE_ASYNC =>
+    &CFGOPT_ARCHIVE_ASYNC =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
         }
     },
 
     # Deprecated and to be removed
-    &CFGBLDOPT_ARCHIVE_MAX_MB =>
+    &CFGOPT_ARCHIVE_MAX_MB =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
         }
     },
 
-    &CFGBLDOPT_ARCHIVE_QUEUE_MAX =>
+    &CFGOPT_ARCHIVE_QUEUE_MAX =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
         },
     },
 
     # Backup options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_ARCHIVE_CHECK =>
+    &CFGOPT_ARCHIVE_CHECK =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => true,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_ONLINE,
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_ONLINE,
             &CFGBLDDEF_RULE_DEPEND_LIST => [true],
         },
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
         },
     },
 
-    &CFGBLDOPT_BACKUP_ARCHIVE_COPY =>
+    &CFGOPT_BACKUP_ARCHIVE_COPY =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP =>
+            &CFGCMD_BACKUP =>
             {
                 &CFGBLDDEF_RULE_DEPEND =>
                 {
-                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_ARCHIVE_CHECK,
+                    &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_ARCHIVE_CHECK,
                     &CFGBLDDEF_RULE_DEPEND_LIST => [true],
                 }
             }
         }
     },
 
-    &CFGBLDOPT_BACKUP_CMD =>
+    &CFGOPT_BACKUP_CMD =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_REQUIRED => false,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_BACKUP_HOST,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_BACKUP_HOST,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_BACKUP_HOST
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_BACKUP_HOST
         },
     },
 
-    &CFGBLDOPT_BACKUP_CONFIG =>
+    &CFGOPT_BACKUP_CONFIG =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => CFGBLDDEF_DEFAULT_CONFIG,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_BACKUP_HOST,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_BACKUP_HOST,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_BACKUP_HOST
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_BACKUP_HOST
         },
     },
 
-    &CFGBLDOPT_BACKUP_HOST =>
+    &CFGOPT_BACKUP_HOST =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET => {},
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_INFO => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_GET => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_INFO => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         },
     },
 
-    &CFGBLDOPT_BACKUP_SSH_PORT =>
+    &CFGOPT_BACKUP_SSH_PORT =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_REQUIRED => false,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_BACKUP_HOST,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_BACKUP_HOST,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_BACKUP_HOST
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_BACKUP_HOST
         }
     },
 
-    &CFGBLDOPT_BACKUP_STANDBY =>
+    &CFGOPT_BACKUP_STANDBY =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         },
     },
 
-    &CFGBLDOPT_BACKUP_USER =>
+    &CFGOPT_BACKUP_USER =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => 'backrest',
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_BACKUP_HOST,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_BACKUP_HOST,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_BACKUP_HOST
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_BACKUP_HOST
         }
     },
 
-    &CFGBLDOPT_CHECKSUM_PAGE =>
+    &CFGOPT_CHECKSUM_PAGE =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
+            &CFGCMD_BACKUP => {},
         }
     },
 
-    &CFGBLDOPT_HARDLINK =>
+    &CFGOPT_HARDLINK =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
+            &CFGCMD_BACKUP => {},
         }
     },
 
-    &CFGBLDOPT_MANIFEST_SAVE_THRESHOLD =>
+    &CFGOPT_MANIFEST_SAVE_THRESHOLD =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
         &CFGBLDDEF_RULE_DEFAULT => 1073741824,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
+            &CFGCMD_BACKUP => {},
         }
     },
 
-    &CFGBLDOPT_RESUME =>
+    &CFGOPT_RESUME =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => true,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
+            &CFGCMD_BACKUP => {},
         }
     },
 
-    &CFGBLDOPT_START_FAST =>
+    &CFGOPT_START_FAST =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
+            &CFGCMD_BACKUP => {},
         }
     },
 
-    &CFGBLDOPT_STOP_AUTO =>
+    &CFGOPT_STOP_AUTO =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
+            &CFGCMD_BACKUP => {},
         }
     },
 
     # Expire options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_RETENTION_ARCHIVE =>
+    &CFGOPT_RETENTION_ARCHIVE =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
@@ -1468,20 +1468,20 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_RETENTION_MIN, CFGBLDDEF_DEFAULT_RETENTION_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_EXPIRE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_EXPIRE => {},
         }
     },
 
-    &CFGBLDOPT_RETENTION_ARCHIVE_TYPE =>
+    &CFGOPT_RETENTION_ARCHIVE_TYPE =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => CFGBLDOPTVAL_BACKUP_TYPE_FULL,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_EXPIRE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_EXPIRE => {},
         },
         &CFGBLDDEF_RULE_ALLOW_LIST =>
         [
@@ -1491,7 +1491,7 @@ my %hOptionRule =
         ]
     },
 
-    &CFGBLDOPT_RETENTION_DIFF =>
+    &CFGOPT_RETENTION_DIFF =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
@@ -1499,12 +1499,12 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_RETENTION_MIN, CFGBLDDEF_DEFAULT_RETENTION_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_EXPIRE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_EXPIRE => {},
         }
     },
 
-    &CFGBLDOPT_RETENTION_FULL =>
+    &CFGOPT_RETENTION_FULL =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
@@ -1512,14 +1512,14 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_ALLOW_RANGE => [CFGBLDDEF_DEFAULT_RETENTION_MIN, CFGBLDDEF_DEFAULT_RETENTION_MAX],
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_EXPIRE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_EXPIRE => {},
         }
     },
 
     # Restore options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_DB_INCLUDE =>
+    &CFGOPT_DB_INCLUDE =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_HASH,
@@ -1527,66 +1527,66 @@ my %hOptionRule =
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE => {},
+            &CFGCMD_RESTORE => {},
         },
     },
 
-    &CFGBLDOPT_LINK_ALL =>
+    &CFGOPT_LINK_ALL =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_BOOLEAN,
         &CFGBLDDEF_RULE_DEFAULT => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE => {},
+            &CFGCMD_RESTORE => {},
         }
     },
 
-    &CFGBLDOPT_LINK_MAP =>
+    &CFGOPT_LINK_MAP =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_HASH,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE => {},
+            &CFGCMD_RESTORE => {},
         },
     },
 
-    &CFGBLDOPT_TABLESPACE_MAP_ALL =>
+    &CFGOPT_TABLESPACE_MAP_ALL =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE => {},
+            &CFGCMD_RESTORE => {},
         }
     },
 
-    &CFGBLDOPT_TABLESPACE_MAP =>
+    &CFGOPT_TABLESPACE_MAP =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_HASH,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE => {},
+            &CFGCMD_RESTORE => {},
         },
     },
 
-    &CFGBLDOPT_RECOVERY_OPTION =>
+    &CFGOPT_RECOVERY_OPTION =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_HASH,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_RESTORE => {},
+            &CFGCMD_RESTORE => {},
         },
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_TYPE,
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_TYPE,
             &CFGBLDDEF_RULE_DEPEND_LIST =>
             [
                 &CFGBLDOPTVAL_RESTORE_TYPE_DEFAULT,
@@ -1599,169 +1599,169 @@ my %hOptionRule =
 
     # Stanza options
     #-------------------------------------------------------------------------------------------------------------------------------
-    &CFGBLDOPT_DB_CMD =>
+    &CFGOPT_DB_CMD =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_PREFIX => CFGBLDOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         },
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_DB_HOST
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_DB_HOST
         },
     },
 
-    &CFGBLDOPT_DB_CONFIG =>
+    &CFGOPT_DB_CONFIG =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_GLOBAL,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_PREFIX => CFGBLDOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
         &CFGBLDDEF_RULE_DEFAULT => CFGBLDDEF_DEFAULT_CONFIG,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         },
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_DB_HOST
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_DB_HOST
         },
     },
 
-    &CFGBLDOPT_DB_HOST =>
+    &CFGOPT_DB_HOST =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_PREFIX => CFGBLDOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_PUSH => {},
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_EXPIRE => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
-            &CFGBLDCMD_START => {},
-            &CFGBLDCMD_STOP => {},
+            &CFGCMD_ARCHIVE_PUSH => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_EXPIRE => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
+            &CFGCMD_START => {},
+            &CFGCMD_STOP => {},
         }
     },
 
-    &CFGBLDOPT_DB_PATH =>
+    &CFGOPT_DB_PATH =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
-        &CFGBLDDEF_RULE_PREFIX => CFGBLDOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
         &CFGBLDDEF_RULE_REQUIRED => true,
         &CFGBLDDEF_RULE_HINT => "does this stanza exist?",
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_ARCHIVE_GET =>
+            &CFGCMD_ARCHIVE_GET =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false
             },
-            &CFGBLDCMD_ARCHIVE_PUSH =>
+            &CFGCMD_ARCHIVE_PUSH =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false
             },
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_LOCAL =>
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_LOCAL =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false
             },
-            &CFGBLDCMD_REMOTE =>
+            &CFGCMD_REMOTE =>
             {
                 &CFGBLDDEF_RULE_REQUIRED => false
             },
-            &CFGBLDCMD_RESTORE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_RESTORE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         },
     },
 
-    &CFGBLDOPT_DB_PORT =>
+    &CFGOPT_DB_PORT =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
-        &CFGBLDDEF_RULE_PREFIX => CFGBLDOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
         &CFGBLDDEF_RULE_DEFAULT => 5432,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         }
     },
 
-    &CFGBLDOPT_DB_SSH_PORT =>
+    &CFGOPT_DB_SSH_PORT =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_INTEGER,
-        &CFGBLDDEF_RULE_PREFIX => CFGBLDOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
         &CFGBLDDEF_RULE_REQUIRED => false,
-        &CFGBLDDEF_RULE_COMMAND => CFGBLDOPT_DB_HOST,
+        &CFGBLDDEF_RULE_COMMAND => CFGOPT_DB_HOST,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_DB_HOST
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_DB_HOST
         },
     },
 
-    &CFGBLDOPT_DB_SOCKET_PATH =>
+    &CFGOPT_DB_SOCKET_PATH =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
-        &CFGBLDDEF_RULE_PREFIX => CFGBLDOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_REMOTE => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_REMOTE => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         }
     },
 
-    &CFGBLDOPT_DB_USER =>
+    &CFGOPT_DB_USER =>
     {
         &CFGBLDDEF_RULE_SECTION => CFGBLDDEF_SECTION_STANZA,
-        &CFGBLDDEF_RULE_PREFIX => CFGBLDOPT_PREFIX_DB,
+        &CFGBLDDEF_RULE_PREFIX => CFGOPT_PREFIX_DB,
         &CFGBLDDEF_RULE_TYPE => CFGBLDDEF_TYPE_STRING,
         &CFGBLDDEF_RULE_DEFAULT => 'postgres',
         &CFGBLDDEF_RULE_COMMAND =>
         {
-            &CFGBLDCMD_BACKUP => {},
-            &CFGBLDCMD_CHECK => {},
-            &CFGBLDCMD_LOCAL => {},
-            &CFGBLDCMD_STANZA_CREATE => {},
-            &CFGBLDCMD_STANZA_UPGRADE => {},
+            &CFGCMD_BACKUP => {},
+            &CFGCMD_CHECK => {},
+            &CFGCMD_LOCAL => {},
+            &CFGCMD_STANZA_CREATE => {},
+            &CFGCMD_STANZA_UPGRADE => {},
         },
         &CFGBLDDEF_RULE_REQUIRED => false,
         &CFGBLDDEF_RULE_DEPEND =>
         {
-            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGBLDOPT_DB_HOST
+            &CFGBLDDEF_RULE_DEPEND_OPTION => CFGOPT_DB_HOST
         },
     },
 );
@@ -1939,7 +1939,7 @@ sub cfgbldOptionRuleGet
     {
         # Build options for all possible db configurations
         if (defined($rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX}) &&
-            $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX} eq CFGBLDOPT_PREFIX_DB)
+            $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX} eq CFGOPT_PREFIX_DB)
         {
             my $strPrefix = $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_PREFIX};
             $rhOptionRuleIndex->{$strKey}{&CFGBLDDEF_RULE_INDEX} = CFGBLDOPTDEF_INDEX_DB;
@@ -1997,8 +1997,8 @@ sub cfgbldCommandGet
     }
 
     # Add special commands
-    $rhCommand->{&CFGBLDCMD_HELP} = true;
-    $rhCommand->{&CFGBLDCMD_VERSION} = true;
+    $rhCommand->{&CFGCMD_HELP} = true;
+    $rhCommand->{&CFGCMD_VERSION} = true;
 
     return $rhCommand;
 }
